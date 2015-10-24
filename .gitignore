@@ -57,3 +57,8 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# django project
+/db.sqlite3
+/manage.py
+/mysite/
