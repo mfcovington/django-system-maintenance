@@ -138,6 +138,8 @@ class Software(models.Model):
 
     class Meta:
         ordering = ['name']
+        verbose_name = 'software package'
+        verbose_name_plural = 'software packages'
 
     def __str__(self):
         return self.name
