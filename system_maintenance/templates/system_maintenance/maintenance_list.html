@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Maintenance Records</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+</head>
+
+<body>
+<br>
+<br>
+<br>
+  <div class='container'>
+
+    <h1>Maintenance Records</h1>
+    <div class="list-group">
+      {% for record in object_list %}
+        <a href="{% url 'system_maintenance:maintenance_detail' record.pk %}" class="list-group-item
+          {% if record.status == 'In Progress' %}list-group-item-warning{% endif %}
+          {% if record.status == 'Failed' %}list-group-item-danger{% endif %}
+        ">
+            {{ record.datetime|date:'Y-m-d' }} - <strong>{{ record.system }}</strong> - {{ record.maintenance_type }} by {{ record.sys_admin }}
+            {% if record.software.count %}
+              - {{ record.software.all|join:', ' }}
+            {% endif %}
+        </a>
+      {% endfor %}
+    </div class="list-group">
+
+  </div>
+  <br>
+  <br>
+  <br>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>
