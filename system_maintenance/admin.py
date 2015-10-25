@@ -71,7 +71,28 @@ class MaintenanceAdmin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(MaintenanceType)
-admin.site.register(Software)
+@admin.register(MaintenanceType)
+class MaintenanceTypeAdmin(admin.ModelAdmin):
+
+    search_fields = [
+        'maintenance_type',
+        'description',
+    ]
+
+
+@admin.register(Software)
+class SoftwareAdmin(admin.ModelAdmin):
+
+    search_fields = ['name']
+
+
+@admin.register(System)
+class SystemAdmin(admin.ModelAdmin):
+
+    search_fields = [
+        'name',
+        'description',
+    ]
+
+
 admin.site.register(SysAdmin)
-admin.site.register(System)
