@@ -111,23 +111,38 @@
     </div>
 
     {% if object.description.raw %}
-      <h1><a name='description'></a><a href='#summary'>Description</a></h1><hr>
-      <div class='container'>
-        {{ object.description }}
+      <a name='description'></a>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h1 class="panel-title"><a href='#summary'>Description</a></h1>
+        </div>
+        <div class="panel-body">
+          {{ object.description }}
+        </div>
       </div>
     {% endif %}
 
     {% if object.procedure.raw %}
-      <h1><a name='procedure'></a><a href='#summary'>Procedure</a></h1><hr>
-      <div class='container'>
-        {{ object.procedure }}
+      <a name='procedure'></a>
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h1 class="panel-title"><a href='#summary'>Procedure</a></h1>
+        </div>
+        <div class="panel-body">
+          {{ object.procedure }}
+        </div>
       </div>
     {% endif %}
 
     {% if object.problems.raw %}
-      <h1><a name='problems'></a><a href='#summary'>Problems</a></h1><hr>
-      <div class='container'>
-        {{ object.problems }}
+      <a name='problems'></a>
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h1 class="panel-title"><a href='#summary'>Problems</a></h1>
+        </div>
+        <div class="panel-body">
+          {{ object.problems }}
+        </div>
       </div>
     {% endif %}
 
