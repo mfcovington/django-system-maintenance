@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.views.generic import DetailView
 
-# Create your views here.
+from .models import Maintenance
+
+
+class MaintenanceDetailView(DetailView):
+    model = Maintenance
+    template_name = 'system_maintenance/maintenance_detail.html'
