@@ -24,6 +24,7 @@ def render_rest(markup):
 
 MARKUP_FIELD_TYPES = [
     ('Markdown', render_md),
+    ('Markdown Basic', markdown2.markdown),
     ('Plain Text', lambda markup: urlize(linebreaks(escape(markup)))),
     ('reStructuredText', render_rest),
 ]
