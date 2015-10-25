@@ -13,7 +13,7 @@ class MaintenanceAdmin(admin.ModelAdmin):
             'maintenance_type',
             'software',
             'datetime',
-            'success',
+            'status',
         ],
     })
 
@@ -53,14 +53,14 @@ class MaintenanceAdmin(admin.ModelAdmin):
         'datetime',
         'maintenance_type',
         'sys_admin',
-        'success',
+        'status',
     ]
 
     list_filter = [
         'system',
         'maintenance_type',
         'software',
-        'success',
+        'status',
         'sys_admin',
     ]
 

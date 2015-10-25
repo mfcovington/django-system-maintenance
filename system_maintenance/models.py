@@ -29,6 +29,12 @@ MARKUP_FIELD_TYPES = [
     ('reStructuredText', render_rest),
 ]
 
+STATUS_CHOICES = [
+    ('Complete', 'Complete'),
+    ('In Progress', 'In Progress'),
+    ('Failed', 'Failed'),
+]
+
 
 class Maintenance(models.Model):
 
@@ -77,9 +83,11 @@ class Maintenance(models.Model):
         null=True,
     )
 
-    success = models.BooleanField(
-        default=True,
-        help_text='Was the system maintenance successful?',
+    status = models.CharField(
+        choices = STATUS_CHOICES,
+        default='in_progress',
+        help_text='What is the current status of the system maintenance?',
+        max_length=15,
     )
 
     datetime = models.DateTimeField(
