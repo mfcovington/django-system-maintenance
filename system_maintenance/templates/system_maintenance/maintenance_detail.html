@@ -113,39 +113,57 @@
     {% if object.description.raw %}
       <a name='description'></a>
       <div class="panel panel-info">
+
         <div class="panel-heading">
           <h1 class="panel-title"><a href='#summary'>Description</a></h1>
         </div>
+
         <div class="panel-body">
           {{ object.description }}
         </div>
-        <div class="panel-footer panel-info" style="background-color: #d9edf7;"></div>
+
+        <a href='#description'>
+          <div class="panel-footer panel-info" style="background-color: #d9edf7;"></div>
+        </a>
+
       </div>
     {% endif %}
 
     {% if object.procedure.raw %}
       <a name='procedure'></a>
       <div class="panel panel-success">
+
         <div class="panel-heading">
           <h1 class="panel-title"><a href='#summary'>Procedure</a></h1>
         </div>
+
         <div class="panel-body">
           {{ object.procedure }}
         </div>
-        <div class="panel-footer panel-success" style="background-color: #dff0d8;"></div>
+
+        <a href='#procedure'>
+          <div class="panel-footer panel-success" style="background-color: #dff0d8;"></div>
+        </a>
+
       </div>
     {% endif %}
 
     {% if object.problems.raw %}
       <a name='problems'></a>
       <div class="panel panel-danger">
+
         <div class="panel-heading">
           <h1 class="panel-title"><a href='#summary'>Problems</a></h1>
         </div>
+
         <div class="panel-body">
           {{ object.problems }}
         </div>
-        <div class="panel-footer panel-danger" style="background-color: #f2dede;"></div>
+
+        <a href='#problems'>
+          <div class="panel-footer panel-danger" style="background-color: #f2dede;"></div>
+        </a>
+
       </div>
     {% endif %}
 
