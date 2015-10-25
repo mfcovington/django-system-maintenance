@@ -2,6 +2,22 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
+import markdown
+from docutils.core import publish_parts
+from markupfield.fields import MarkupField
+
+
+def render_rest(markup):
+    parts = publish_parts(source=markup, writer_name="html4css1")
+    return parts["fragment"]
+
+
+MARKUP_FIELD_TYPES = [
+    ('Markdown', markdown.markdown),
+    ('Plain Text', lambda markup: urlize(linebreaks(escape(markup)))),
+    ('reStructuredText', render_rest),
+]
+
 
 class Maintenance(models.Model):
 
@@ -26,19 +42,28 @@ class Maintenance(models.Model):
         help_text='Select the software(s) involved in the system maintenance.',
     )
 
-    description = models.TextField(
+    description = MarkupField(
         blank=True,
+        default_markup_type='Markdown',
         help_text='Enter a description of the system maintenance performed.',
+        markup_choices=MARKUP_FIELD_TYPES,
+        null=True,
     )
 
-    procedure = models.TextField(
+    procedure = MarkupField(
         blank=True,
+        default_markup_type='Markdown',
         help_text='Enter details of how the system maintenance was performed.',
+        markup_choices=MARKUP_FIELD_TYPES,
+        null=True,
     )
 
-    problems = models.TextField(
+    problems = MarkupField(
         blank=True,
+        default_markup_type='Markdown',
         help_text='Describe problems that arose during system maintenance.',
+        markup_choices=MARKUP_FIELD_TYPES,
+        null=True,
     )
 
     success = models.BooleanField(
