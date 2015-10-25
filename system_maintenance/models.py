@@ -80,8 +80,8 @@ class Maintenance(models.Model):
 
     class Meta:
         ordering = ['system', '-datetime']
-        verbose_name = 'maintenance activity'
-        verbose_name_plural = 'maintenance activities'
+        verbose_name = 'maintenance record'
+        verbose_name_plural = 'maintenance records'
 
     def __str__(self):
         return '{} - {} ({})'.format(
