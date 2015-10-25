@@ -98,7 +98,7 @@ class Maintenance(models.Model):
     )
 
     class Meta:
-        ordering = ['system', '-datetime']
+        ordering = ['-datetime']
         verbose_name = 'maintenance record'
         verbose_name_plural = 'maintenance records'
 
