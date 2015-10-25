@@ -2,9 +2,19 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
-import markdown
+import markdown2
 from docutils.core import publish_parts
 from markupfield.fields import MarkupField
+
+
+def render_md(markup):
+    return markdown2.markdown(markup, extras=[
+        'code-friendly',
+        'cuddled-lists',
+        'fenced-code-blocks',
+        'footnotes',
+        'tables',
+    ])
 
 
 def render_rest(markup):
@@ -13,7 +23,7 @@ def render_rest(markup):
 
 
 MARKUP_FIELD_TYPES = [
-    ('Markdown', markdown.markdown),
+    ('Markdown', render_md),
     ('Plain Text', lambda markup: urlize(linebreaks(escape(markup)))),
     ('reStructuredText', render_rest),
 ]
