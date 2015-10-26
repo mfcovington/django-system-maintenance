@@ -68,11 +68,11 @@ class MaintenanceAdmin(admin.ModelAdmin):
     ]
 
     list_filter = [
+        'status',
         'system',
         'maintenance_type',
         'hardware',
         'software',
-        'status',
         'sys_admin',
     ]
 
