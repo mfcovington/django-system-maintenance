@@ -111,11 +111,19 @@
         {% if object.description.raw %}
           <a class="btn btn-info btn-lg" href="#description" role="button">Description</a>
         {% endif %}
+
         {% if object.procedure.raw %}
           <a class="btn btn-success btn-lg" href="#procedure" role="button">Procedure</a>
         {% endif %}
+
         {% if object.problems.raw %}
           <a class="btn btn-danger btn-lg" href="#problems" role="button">Problems</a>
+        {% endif %}
+
+        {% if user.is_staff %}
+          <a class="btn btn-lg btn-primary" href="{% url 'admin:system_maintenance_maintenance_change' object.id %}" target="_blank" role="button">
+            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+          </a>
         {% endif %}
       </p>
 
