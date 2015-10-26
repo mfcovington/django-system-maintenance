@@ -83,6 +83,17 @@
       <p><strong>Type:</strong> {{ object.maintenance_type }}</p>
       <p><strong>Who:</strong> {{ object.sys_admin }}</p>
 
+      {% if object.hardware.count == 1 %}
+        <p><strong>Hardware:</strong> {{ object.hardware.first }}</p>
+      {% elif object.hardware.count > 1 %}
+        <p><strong>Hardware:</strong></p>
+        <ul>
+          {% for hardware in object.hardware.all %}
+            <li>{{ hardware }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
       {% if object.software.count == 1 %}
         <p><strong>Software:</strong> {{ object.software.first }}</p>
       {% elif object.software.count > 1 %}

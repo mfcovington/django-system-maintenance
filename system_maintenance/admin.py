@@ -1,6 +1,13 @@
 from django.contrib import admin
 
-from .models import Maintenance, MaintenanceType, Software, SysAdmin, System
+from .models import (Hardware, Maintenance, MaintenanceType, Software,
+    SysAdmin, System)
+
+
+@admin.register(Hardware)
+class HardwareAdmin(admin.ModelAdmin):
+
+    search_fields = ['name']
 
 
 @admin.register(Maintenance)
@@ -11,6 +18,7 @@ class MaintenanceAdmin(admin.ModelAdmin):
             'system',
             'sys_admin',
             'maintenance_type',
+            'hardware',
             'software',
             'datetime',
             'status',
@@ -45,7 +53,10 @@ class MaintenanceAdmin(admin.ModelAdmin):
         fieldset_problems,
     ]
 
-    filter_horizontal = ['software']
+    filter_horizontal = [
+        'hardware',
+        'software',
+    ]
 
     list_display = [
         'id',
@@ -59,6 +70,7 @@ class MaintenanceAdmin(admin.ModelAdmin):
     list_filter = [
         'system',
         'maintenance_type',
+        'hardware',
         'software',
         'status',
         'sys_admin',

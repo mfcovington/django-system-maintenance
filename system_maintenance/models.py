@@ -36,6 +36,22 @@ STATUS_CHOICES = [
 ]
 
 
+class Hardware(models.Model):
+
+    name = models.CharField(
+        max_length=255,
+        help_text="Enter the type of hardware.",
+        unique=True,
+    )
+
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = 'hardware'
+
+    def __str__(self):
+        return self.name
+
+
 class Maintenance(models.Model):
 
     system = models.ForeignKey(
@@ -51,6 +67,12 @@ class Maintenance(models.Model):
     maintenance_type = models.ForeignKey(
         'MaintenanceType',
         help_text='Select/Create a maintenance type.',
+    )
+
+    hardware = models.ManyToManyField(
+        'Hardware',
+        blank=True,
+        help_text='Select the hardware involved in the system maintenance.',
     )
 
     software = models.ManyToManyField(
