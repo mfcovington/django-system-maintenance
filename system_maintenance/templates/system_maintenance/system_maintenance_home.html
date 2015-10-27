@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>System Maintenance</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <style>
+    .jumbotron .btn {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+<br>
+<br>
+<br>
+  <div class="container">
+    <div class="jumbotron">
+
+      <h1>System Maintenance</h1>
+      <p>System maintenance records and other important system administration information is accessible via the buttons below.</p>
+
+      {% if user.is_staff %}
+        <p>
+          To add or change maintenance data, click on the relevant <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> or go to the <a href="{% url 'admin:app_list' 'system_maintenance' %}">System Maintenance Admin Page</a>.
+        </p>
+      {% endif %}
+
+      <p>
+        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
+          <a class="btn btn-info" href="{% url 'system_maintenance:maintenance_list' %}" role="button">
+            {{ maintenance_record_count }} Maintenance Record{{ maintenance_record_count|pluralize }}
+          </a>
+          {% if user.is_staff %}
+            <a class="btn btn-info" href="{% url 'admin:system_maintenance_maintenance_changelist' %}" target="_blank" role="button">
+              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
+          <a class="btn btn-info" href="#" role="button">
+            {{ maintenance_type_count }} Maintenance Type{{ maintenance_type_count|pluralize }}
+          </a>
+          {% if user.is_staff %}
+            <a class="btn btn-info" href="{% url 'admin:system_maintenance_maintenancetype_changelist' %}" target="_blank" role="button">
+              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
+          <a class="btn btn-info" href="#" role="button">
+            {{ hardware_count }} Type{{ hardware_count|pluralize }} of Hardware
+          </a>
+          {% if user.is_staff %}
+            <a class="btn btn-info" href="{% url 'admin:system_maintenance_hardware_changelist' %}" target="_blank" role="button">
+              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
+          <a class="btn btn-info" href="#" role="button">
+            {{ software_count }} Software Package{{ software_count|pluralize }}
+          </a>
+          {% if user.is_staff %}
+            <a class="btn btn-info" href="{% url 'admin:system_maintenance_software_changelist' %}" target="_blank" role="button">
+              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
+          <a class="btn btn-info" href="#" role="button">
+            {{ system_count }} System{{ system_count|pluralize }}
+          </a>
+          {% if user.is_staff %}
+            <a class="btn btn-info" href="{% url 'admin:system_maintenance_system_changelist' %}" target="_blank" role="button">
+              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
+          <a class="btn btn-info" href="#" role="button">
+            {{ sys_admin_count }} System Administrator{{ sys_admin_count|pluralize }}
+          </a>
+          {% if user.is_staff %}
+            <a class="btn btn-info" href="{% url 'admin:system_maintenance_sysadmin_changelist' %}" target="_blank" role="button">
+              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+        </div>
+      </p>
+
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>
+
