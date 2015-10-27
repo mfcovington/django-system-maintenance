@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 
@@ -151,6 +152,10 @@ class MaintenanceRecordRelationship(models.Model):
     class Meta:
         ordering = ['referencing_record']
         unique_together = ('referencing_record', 'referenced_record')
+
+    def clean(self):
+        if self.referencing_record == self.referenced_record:
+            raise ValidationError('A record cannot by related to itself.')
 
     def __str__(self):
         return '{} ➤ {}'.format(
