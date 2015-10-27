@@ -105,6 +105,13 @@ class Maintenance(models.Model):
         null=True,
     )
 
+    referenced_records = models.ManyToManyField(
+        'self',
+        related_name='referencing_records',
+        symmetrical=False,
+        through='MaintenanceRecordRelationship',
+    )
+
     status = models.CharField(
         choices = STATUS_CHOICES,
         default='in_progress',
@@ -127,6 +134,27 @@ class Maintenance(models.Model):
     def __str__(self):
         return '{} - {} ({})'.format(
             self.system, self.maintenance_type, self.datetime.date())
+
+
+class MaintenanceRecordRelationship(models.Model):
+
+    referencing_record = models.ForeignKey(
+        'Maintenance',
+        related_name='referencing_record',
+    )
+
+    referenced_record = models.ForeignKey(
+        'Maintenance',
+        related_name='referenced_record',
+    )
+
+    class Meta:
+        ordering = ['referencing_record']
+        unique_together = ('referencing_record', 'referenced_record')
+
+    def __str__(self):
+        return '{} ➤ {}'.format(
+            self.referencing_record, self.referenced_record)
 
 
 class MaintenanceType(models.Model):

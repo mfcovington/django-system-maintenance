@@ -120,6 +120,14 @@
           <a class="btn btn-danger btn-lg" href="#problems" role="button">Problems</a>
         {% endif %}
 
+        {% with object.referenced_records.count|add:object.referencing_records.count as related_record_count %}
+          {% if related_record_count %}
+            <a class="btn btn-info btn-lg" href="#related-records" role="button">
+              {{ related_record_count }} Related Record{{ related_record_count|pluralize }}
+            </a>
+          {% endif %}
+        {% endwith %}
+
         {% if user.is_staff %}
           <a class="btn btn-lg btn-primary" href="{% url 'admin:system_maintenance_maintenance_change' object.id %}" target="_blank" role="button">
             <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
@@ -181,6 +189,43 @@
 
         <a href='#problems'>
           <div class="panel-footer panel-danger" style="background-color: #f2dede;"></div>
+        </a>
+
+      </div>
+    {% endif %}
+
+    {% if object.referenced_records.count or object.referencing_records.count %}
+      <a name='related-records'></a>
+      <div class="panel panel-info">
+
+        <div class="panel-heading">
+          <h1 class="panel-title"><a href='#summary'>Related Records</a></h1>
+        </div>
+
+        <div class="panel-body">
+
+          {% if object.referenced_records.count %}
+            <h4>See also:</h4>
+            <div class="list-group">
+              {% for record in object.referenced_records.all %}
+                {% include "system_maintenance/_maintenance_record_list_item.html" %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if object.referencing_records.count %}
+            <h4>Referenced by:</h4>
+            <div class="list-group">
+              {% for record in object.referencing_records.all %}
+                {% include "system_maintenance/_maintenance_record_list_item.html" %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+        </div>
+
+        <a href='#related-records'>
+          <div class="panel-footer panel-info" style="background-color: #d9edf7;"></div>
         </a>
 
       </div>

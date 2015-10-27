@@ -1,13 +1,50 @@
 from django.contrib import admin
 
-from .models import (Hardware, Maintenance, MaintenanceType, Software,
-    SysAdmin, System)
+from .models import (Hardware, Maintenance, MaintenanceRecordRelationship,
+    MaintenanceType, Software, SysAdmin, System)
+
+
+class ReferencingRecordInline(admin.TabularInline):
+    model = MaintenanceRecordRelationship
+    fk_name = 'referencing_record'
+
+
+class ReferencedRecordInline(admin.TabularInline):
+    model = MaintenanceRecordRelationship
+    fk_name = 'referenced_record'
 
 
 @admin.register(Hardware)
 class HardwareAdmin(admin.ModelAdmin):
 
     search_fields = ['name']
+
+
+@admin.register(MaintenanceRecordRelationship)
+class MaintenanceRecordRelationshipAdmin(admin.ModelAdmin):
+
+    list_display = [
+        '__str__',
+        'referencing_record',
+        'referenced_record',
+    ]
+
+    search_fields = [
+        'referencing_record__description',
+        'referencing_record__procedure',
+        'referencing_record__problems',
+        'referencing_record__system__name',
+        'referencing_record__hardware__name',
+        'referencing_record__software__name',
+        'referencing_record__maintenance_type__maintenance_type',
+        'referenced_record__description',
+        'referenced_record__procedure',
+        'referenced_record__problems',
+        'referenced_record__system__name',
+        'referenced_record__hardware__name',
+        'referenced_record__software__name',
+        'referenced_record__maintenance_type__maintenance_type',
+    ]
 
 
 @admin.register(Maintenance)
@@ -56,6 +93,11 @@ class MaintenanceAdmin(admin.ModelAdmin):
     filter_horizontal = [
         'hardware',
         'software',
+    ]
+
+    inlines = [
+        ReferencingRecordInline,
+        ReferencedRecordInline,
     ]
 
     list_display = [
