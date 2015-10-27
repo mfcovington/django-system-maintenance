@@ -101,7 +101,7 @@ class MaintenanceAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
-        'id',
+        '__str__',
         'system',
         'datetime',
         'maintenance_type',
