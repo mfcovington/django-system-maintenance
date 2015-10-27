@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import (Hardware, Maintenance, MaintenanceRecordRelationship,
-    MaintenanceType, Software, SysAdmin, System)
+from .models import (Hardware, MaintenanceRecord,
+    MaintenanceRecordRelationship, MaintenanceType, Software, SysAdmin, System)
 
 
 class ReferencingRecordInline(admin.TabularInline):
@@ -47,8 +47,8 @@ class MaintenanceRecordRelationshipAdmin(admin.ModelAdmin):
     ]
 
 
-@admin.register(Maintenance)
-class MaintenanceAdmin(admin.ModelAdmin):
+@admin.register(MaintenanceRecord)
+class MaintenanceRecordAdmin(admin.ModelAdmin):
 
     fieldset_basic = ('Basic', {
         'fields': [

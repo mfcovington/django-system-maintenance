@@ -29,11 +29,11 @@
 
       <p>
         <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
-          <a class="btn btn-info" href="{% url 'system_maintenance:maintenance_list' %}" role="button">
+          <a class="btn btn-info" href="{% url 'system_maintenance:maintenance_record_list' %}" role="button">
             {{ maintenance_record_count }} Maintenance Record{{ maintenance_record_count|pluralize }}
           </a>
           {% if user.is_staff %}
-            <a class="btn btn-info" href="{% url 'admin:system_maintenance_maintenance_changelist' %}" target="_blank" role="button">
+            <a class="btn btn-info" href="{% url 'admin:system_maintenance_maintenancerecord_changelist' %}" target="_blank" role="button">
               <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
             </a>
           {% endif %}

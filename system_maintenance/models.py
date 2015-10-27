@@ -52,8 +52,8 @@ class Hardware(models.Model):
         return self.name
 
 
-class Maintenance(models.Model):
 
+class MaintenanceRecord(models.Model):
     system = models.ForeignKey(
         'System',
         help_text='Select/Create a system.',
@@ -139,12 +139,12 @@ class Maintenance(models.Model):
 class MaintenanceRecordRelationship(models.Model):
 
     referencing_record = models.ForeignKey(
-        'Maintenance',
+        'MaintenanceRecord',
         related_name='referencing_record',
     )
 
     referenced_record = models.ForeignKey(
-        'Maintenance',
+        'MaintenanceRecord',
         related_name='referenced_record',
     )
 

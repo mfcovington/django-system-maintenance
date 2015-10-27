@@ -1,4 +1,4 @@
-<a href="{% url 'system_maintenance:maintenance_detail' record.pk %}" class="list-group-item
+<a href="{% url 'system_maintenance:maintenance_record_detail' record.pk %}" class="list-group-item
   {% if record.status == 'In Progress' %}list-group-item-warning{% endif %}
   {% if record.status == 'Failed' %}list-group-item-danger{% endif %}
 ">

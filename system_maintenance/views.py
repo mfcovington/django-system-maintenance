@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.utils.decorators import available_attrs, method_decorator
 from django.views.generic import DetailView, ListView
 
-from .models import (Hardware, Maintenance, MaintenanceType, Software,
+from .models import (Hardware, MaintenanceRecord, MaintenanceType, Software,
     SysAdmin, System)
 
 
@@ -45,7 +45,7 @@ class SysAdminRequiredMixin(object):
 def system_maintenance_home_view(request):
     context = {
         'hardware_count': Hardware.objects.all().count(),
-        'maintenance_record_count': Maintenance.objects.all().count(),
+        'maintenance_record_count': MaintenanceRecord.objects.all().count(),
         'maintenance_type_count': MaintenanceType.objects.all().count(),
         'software_count': Software.objects.all().count(),
         'sys_admin_count': SysAdmin.objects.all().count(),
@@ -54,13 +54,13 @@ def system_maintenance_home_view(request):
     return render(request, 'system_maintenance/system_maintenance_home.html', context)
 
 
-class MaintenanceDetailView(SysAdminRequiredMixin, DetailView):
+class MaintenanceRecordDetailView(SysAdminRequiredMixin, DetailView):
 
-    model = Maintenance
-    template_name = 'system_maintenance/maintenance_detail.html'
+    model = MaintenanceRecord
+    template_name = 'system_maintenance/maintenance_record_detail.html'
 
 
-class MaintenanceListView(SysAdminRequiredMixin, ListView):
+class MaintenanceRecordListView(SysAdminRequiredMixin, ListView):
 
-    model = Maintenance
-    template_name = 'system_maintenance/maintenance_list.html'
+    model = MaintenanceRecord
+    template_name = 'system_maintenance/maintenance_record_list.html'
