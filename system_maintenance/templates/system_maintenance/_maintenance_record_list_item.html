@@ -1,0 +1,14 @@
+<a href="{% url 'system_maintenance:maintenance_detail' record.pk %}" class="list-group-item
+  {% if record.status == 'In Progress' %}list-group-item-warning{% endif %}
+  {% if record.status == 'Failed' %}list-group-item-danger{% endif %}
+">
+    {{ record.datetime|date:'Y-m-d' }} - <strong>{{ record.system }}</strong> - {{ record.maintenance_type }} by {{ record.sys_admin }}
+
+    {% if record.hardware.count %}
+      - {{ record.hardware.all|join:', ' }}
+    {% endif %}
+
+    {% if record.software.count %}
+      - {{ record.software.all|join:', ' }}
+    {% endif %}
+</a>
