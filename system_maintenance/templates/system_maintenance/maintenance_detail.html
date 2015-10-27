@@ -129,7 +129,7 @@
         {% endwith %}
 
         {% if user.is_staff %}
-          <a class="btn btn-lg btn-primary" href="{% url 'admin:system_maintenance_maintenance_change' object.id %}" target="_blank" role="button">
+          <a class="btn btn-primary btn-lg" href="{% url 'admin:system_maintenance_maintenance_change' object.id %}" target="_blank" role="button">
             <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
           </a>
         {% endif %}
