@@ -78,7 +78,7 @@ class Maintenance(models.Model):
     software = models.ManyToManyField(
         'Software',
         blank=True,
-        help_text='Select the software(s) involved in the system maintenance.',
+        help_text='Select the software involved in the system maintenance.',
     )
 
     description = MarkupField(
