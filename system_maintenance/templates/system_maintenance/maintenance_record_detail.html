@@ -234,6 +234,10 @@
               <a href="#" class="list-group-item documentation-title">
                 <h5>
                   {{ documentation.title }}
+                  <br><small>Created: {{ documentation.created_at }}</small>
+                  {% if documentation.created_at|date:'r' != documentation.updated_at|date:'r' %}
+                    <br><small>Updated: {{ documentation.updated_at }}</small>
+                  {% endif %}
                 </h5>
               </a>
 
