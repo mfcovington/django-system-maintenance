@@ -63,4 +63,5 @@ class MaintenanceRecordDetailView(SysAdminRequiredMixin, DetailView):
 class MaintenanceRecordListView(SysAdminRequiredMixin, ListView):
 
     model = MaintenanceRecord
+    paginate_by = 30
     template_name = 'system_maintenance/maintenance_record_list.html'
