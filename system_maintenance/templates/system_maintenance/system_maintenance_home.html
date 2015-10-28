@@ -1,22 +1,9 @@
+{% extends "system_maintenance/base.html" %}
 {% load humanize %}
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>System Maintenance</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+{% block title %}System Maintenance{% endblock %}
 
-  <style>
-    .jumbotron .btn {
-      margin-bottom: 5px;
-    }
-  </style>
-</head>
-
-<body>
-<br>
-<br>
-<br>
+{% block content %}
   <div class="container">
     <div class="jumbotron">
 
@@ -110,11 +97,4 @@
 
     </div>
   </div>
-  <br>
-  <br>
-  <br>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-</body>
-</html>
-
+{% endblock content %}

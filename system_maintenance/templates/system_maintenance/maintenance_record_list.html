@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Maintenance Records</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-</head>
+{% extends "system_maintenance/base.html" %}
 
-<body>
-<br>
-<br>
-<br>
+{% block title %}Maintenance Records{% endblock %}
+
+{% block content %}
   <div class='container'>
 
     <ol class="breadcrumb">
@@ -35,10 +29,4 @@
     {% include "system_maintenance/_pagination.html" %}
 
   </div>
-  <br>
-  <br>
-  <br>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock content %}
