@@ -36,6 +36,15 @@ STATUS_CHOICES = [
     ('Failed', 'Failed'),
 ]
 
+SYSADMIN_CATEGORIES = [
+    ('Account', 'Account'),
+    ('Hardware', 'Hardware'),
+    ('Software', 'Software'),
+    ('System Administration', 'System Administration'),
+    ('Website', 'Website'),
+    ('Other', 'Other'),
+]
+
 
 class Hardware(models.Model):
 
@@ -51,6 +60,39 @@ class Hardware(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class DocumentationRecord(models.Model):
+
+    title = models.CharField(
+        max_length=255,
+        help_text="Enter a breif, descriptive title for this documentation.",
+        unique=True,
+    )
+
+    category = models.CharField(
+        choices = SYSADMIN_CATEGORIES,
+        # default='in_progress',
+        help_text='What is this documentation about?',
+        max_length=25,
+    )
+
+    documentation = MarkupField(
+        blank=True,
+        default_markup_type='Markdown',
+        help_text='Document how to perform a task.',
+        markup_choices=MARKUP_FIELD_TYPES,
+        null=True,
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['title']
+
+    def __str__(self):
+        return self.title
 
 
 
@@ -111,6 +153,13 @@ class MaintenanceRecord(models.Model):
         related_name='referencing_records',
         symmetrical=False,
         through='MaintenanceRecordRelationship',
+    )
+
+    documentation_records = models.ManyToManyField(
+        'DocumentationRecord',
+        blank=True,
+        help_text='Select documentation relevant to this system maintenance.<br>',
+        related_name='maintenance_records',
     )
 
     status = models.CharField(

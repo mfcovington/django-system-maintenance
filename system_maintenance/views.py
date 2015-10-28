@@ -6,8 +6,8 @@ from django.shortcuts import render
 from django.utils.decorators import available_attrs, method_decorator
 from django.views.generic import DetailView, ListView
 
-from .models import (Hardware, MaintenanceRecord, MaintenanceType, Software,
-    SysAdmin, System)
+from .models import (DocumentationRecord, Hardware, MaintenanceRecord,
+    MaintenanceType, Software, SysAdmin, System)
 
 
 def user_passes_test_or_404(test_func, message='User test failed.'):
@@ -44,6 +44,8 @@ class SysAdminRequiredMixin(object):
 )
 def system_maintenance_home_view(request):
     context = {
+        'documentation_record_count':
+            DocumentationRecord.objects.all().count(),
         'hardware_count': Hardware.objects.all().count(),
         'maintenance_record_count': MaintenanceRecord.objects.all().count(),
         'maintenance_type_count': MaintenanceType.objects.all().count(),
@@ -51,7 +53,8 @@ def system_maintenance_home_view(request):
         'sys_admin_count': SysAdmin.objects.all().count(),
         'system_count': System.objects.all().count(),
     }
-    return render(request, 'system_maintenance/system_maintenance_home.html', context)
+    return render(
+        request, 'system_maintenance/system_maintenance_home.html', context)
 
 
 class MaintenanceRecordDetailView(SysAdminRequiredMixin, DetailView):

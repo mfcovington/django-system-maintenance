@@ -54,6 +54,17 @@
 
         <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
           <a class="btn btn-info" href="#" role="button">
+            {{ documentation_record_count|intcomma }} Documentation Record{{ documentation_record_count|pluralize }}
+          </a>
+          {% if user.is_staff %}
+            <a class="btn btn-info" href="{% url 'admin:system_maintenance_documentationrecord_changelist' %}" target="_blank" role="button">
+              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
+          <a class="btn btn-info" href="#" role="button">
             {{ hardware_count|intcomma }} Type{{ hardware_count|pluralize }} of Hardware
           </a>
           {% if user.is_staff %}

@@ -1,6 +1,7 @@
+from django import forms
 from django.contrib import admin
 
-from .models import (Hardware, MaintenanceRecord,
+from .models import (DocumentationRecord, Hardware, MaintenanceRecord,
     MaintenanceRecordRelationship, MaintenanceType, Software, SysAdmin, System)
 
 
@@ -18,6 +19,90 @@ class ReferencedRecordInline(admin.TabularInline):
 class HardwareAdmin(admin.ModelAdmin):
 
     search_fields = ['name']
+
+
+class DocumentationRecordAdminForm(forms.ModelForm):
+    maintenance_records = forms.ModelMultipleChoiceField(
+        MaintenanceRecord.objects.all(),
+        widget=admin.widgets.FilteredSelectMultiple(
+            'MaintenanceRecord', False),
+        required=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance.pk:
+            self.initial['maintenance_records'] = \
+                self.instance.maintenance_records.values_list('pk', flat=True)
+
+    def save(self, *args, **kwargs):
+        instance = super().save(*args, **kwargs)
+        if instance.pk:
+            instance.maintenance_records.clear()
+            instance.maintenance_records.add(
+                *self.cleaned_data['maintenance_records'])
+        return instance
+
+
+@admin.register(DocumentationRecord)
+class DocumentationRecordAdmin(admin.ModelAdmin):
+
+    form = DocumentationRecordAdminForm
+
+    fieldset_basic = ('Basic', {
+        'fields': [
+            'title',
+            'category',
+        ],
+    })
+
+    fieldset_description = ('Documentation', {
+        'fields': [
+            'documentation',
+        ],
+    })
+
+    fieldset_maintenance_records = ('Related Maintenance Records', {
+        'fields': [
+            'maintenance_records',
+        ],
+    })
+
+    fieldset_timestamps = ('Timestamps', {
+        'classes': ['collapse'],
+        'fields': [
+            'created_at',
+            'updated_at',
+        ],
+    })
+
+    fieldsets = [
+        fieldset_basic,
+        fieldset_description,
+        fieldset_maintenance_records,
+        fieldset_timestamps,
+    ]
+
+    list_display = [
+        'title',
+        'category',
+        'created_at',
+        'updated_at',
+    ]
+
+    list_filter = [
+        'category',
+    ]
+
+    readonly_fields = [
+        'created_at',
+        'updated_at',
+    ]
+
+    search_fields = [
+        'title',
+        'documentation',
+    ]
 
 
 @admin.register(MaintenanceRecordRelationship)
@@ -83,16 +168,24 @@ class MaintenanceRecordAdmin(admin.ModelAdmin):
         ],
     })
 
+    fieldset_documentation = ('Documentation Records', {
+        'fields': [
+            'documentation_records',
+        ],
+    })
+
     fieldsets = [
         fieldset_basic,
         fieldset_description,
         fieldset_procedure,
         fieldset_problems,
+        fieldset_documentation,
     ]
 
     filter_horizontal = [
         'hardware',
         'software',
+        'documentation_records',
     ]
 
     inlines = [
