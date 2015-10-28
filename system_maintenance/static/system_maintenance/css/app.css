@@ -22,3 +22,7 @@ a.documentation-title:hover {
 .panel-footer.panel-success {
   background-color: #dff0d8;
 }
+
+.pagination .glyphicon-menu-left + .glyphicon-menu-left,
+.pagination .glyphicon-menu-right + .glyphicon-menu-right {
+  margin-left: -13px;
