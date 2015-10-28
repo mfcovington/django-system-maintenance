@@ -1,0 +1,9 @@
+.jumbotron .btn {
+  margin-bottom: 5px;
+}
+.documentation-title {
+  background-color: rgb(225, 225, 225);
+}
+a.documentation-title:hover {
+  background-color: rgb(245, 245, 245);
+}
