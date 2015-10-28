@@ -42,6 +42,17 @@ body {
 /* Panels */
 /**********/
 
+/* Adjust vertical spacing around list groups within panels */
+.panel-body h4:first-of-type {
+  margin-top: 0;
+}
+.panel-body .list-group {
+  margin-bottom: 15px;
+}
+.panel-body .list-group:last-of-type {
+  margin-bottom: 0;
+}
+
 /* By default, Bootstrap panel footers use 'background-color: #f5f5f5;' */
 .panel-footer.panel-danger {
   background-color: #f2dede;
