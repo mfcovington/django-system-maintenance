@@ -7,6 +7,12 @@
     .jumbotron .btn {
       margin-bottom: 5px;
     }
+    .documentation-title {
+      background-color: rgb(225, 225, 225);
+    }
+    a.documentation-title:hover {
+      background-color: rgb(245, 245, 245);
+    }
   </style>
   <style>
     .codehilite .hll { background-color: #ffffcc }
@@ -131,6 +137,14 @@
           <a class="btn btn-danger btn-lg" href="#problems" role="button">Problems</a>
         {% endif %}
 
+        {% with object.documentation_records.count as document_record_count %}
+          {% if document_record_count %}
+            <a class="btn btn-info btn-lg" href="#document-records" role="button">
+              {{ document_record_count }} Relevant Document{{ document_record_count|pluralize }}
+            </a>
+          {% endif %}
+        {% endwith %}
+
         {% with object.referenced_records.count|add:object.referencing_records.count as related_record_count %}
           {% if related_record_count %}
             <a class="btn btn-info btn-lg" href="#related-records" role="button">
@@ -200,6 +214,41 @@
 
         <a href='#problems'>
           <div class="panel-footer panel-danger" style="background-color: #f2dede;"></div>
+        </a>
+
+      </div>
+    {% endif %}
+
+    {% if object.documentation_records.count %}
+      <a name='document-records'></a>
+      <div class="panel panel-info">
+
+        <div class="panel-heading">
+          <h1 class="panel-title"><a href='#summary'>Relevant Documents</a></h1>
+        </div>
+
+        <div class="panel-body">
+          <div class="list-group">
+            {% for documentation in object.documentation_records.all %}
+
+              <a href="#" class="list-group-item documentation-title">
+                <h5>
+                  {{ documentation.title }}
+                </h5>
+              </a>
+
+              <div class="list-group-item">
+                <div class="container-fluid">
+                  {{ documentation.documentation }}
+                </div>
+              </div>
+
+            {% endfor %}
+          </div>
+        </div>
+
+        <a href='#document-records'>
+          <div class="panel-footer panel-info" style="background-color: #d9edf7;"></div>
         </a>
 
       </div>
