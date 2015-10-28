@@ -74,6 +74,12 @@
 <br>
   <div class='container'>
 
+    <ol class="breadcrumb">
+      <li><a href="{% url 'system_maintenance:system_maintenance_home_view' %}">System Maintenance</a></li>
+      <li><a href="{% url 'system_maintenance:maintenance_record_list' %}">Maintenance Records</a></li>
+      <li class="active">{{ object }}</li>
+    </ol>
+
     <a name='summary'></a>
     <div class="jumbotron
       {% if object.status == 'In Progress' %}alert-warning{% endif %}
