@@ -1,3 +1,4 @@
+{# HERE AND ELSEWHERE, MAKE CODE BLOCKS SCROLLABLE INSTEAD OF WRAPPED #}
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,6 +84,10 @@
 <br>
 <br>
 <br>
+  {# I think I want who/when changed #}
+  {# Change list decorator #}
+  {# PROBABLY NOT, BECAUSE CHANGES HEIGHT OF FOOTER: On hover show up arrows on panel footer #}
+  {# PROBABLY NOT, BECAUSE CHANGES COLOR OF H1: Make entire panel header into link to summary? If so, show on hover? #}
   <div class='container'>
 
     <ol class="breadcrumb">
@@ -231,9 +236,10 @@
           <div class="list-group">
             {% for documentation in object.documentation_records.all %}
 
-              <a href="#" class="list-group-item documentation-title">
+              <a href="{% url 'system_maintenance:documentation_record_detail' documentation.pk %}" class="list-group-item documentation-title">
                 <h5>
                   {{ documentation.title }}
+                  <small>- {{ documentation.category }}</small>
                   <br><small>Created: {{ documentation.created_at }}</small>
                   {% if documentation.created_at|date:'r' != documentation.updated_at|date:'r' %}
                     <br><small>Updated: {{ documentation.updated_at }}</small>

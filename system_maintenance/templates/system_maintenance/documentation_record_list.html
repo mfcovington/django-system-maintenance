@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Documentation Records</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+</head>
+
+<body>
+<br>
+<br>
+<br>
+  <div class='container'>
+
+    <ol class="breadcrumb">
+      <li><a href="{% url 'system_maintenance:system_maintenance_home_view' %}">System Maintenance</a></li>
+      <li class="active">Documentation Records</li>
+    </ol>
+
+    <div class="jumbotron">
+      <h1>Documentation Records</h1>
+    </div>
+
+    <div class="list-group">
+      {% for record in object_list %}
+        {% include "system_maintenance/_documentation_record_list_item.html" %}
+      {% endfor %}
+    </div>
+
+    {% include "system_maintenance/_pagination.html" %}
+
+  </div>
+  <br>
+  <br>
+  <br>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>

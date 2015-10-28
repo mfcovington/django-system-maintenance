@@ -53,7 +53,7 @@
         </div>
 
         <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
-          <a class="btn btn-info" href="#" role="button">
+          <a class="btn btn-info" href="{% url 'system_maintenance:documentation_record_list' %}" role="button">
             {{ documentation_record_count|intcomma }} Documentation Record{{ documentation_record_count|pluralize }}
           </a>
           {% if user.is_staff %}

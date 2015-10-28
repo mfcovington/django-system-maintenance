@@ -57,6 +57,19 @@ def system_maintenance_home_view(request):
         request, 'system_maintenance/system_maintenance_home.html', context)
 
 
+class DocumentationRecordDetailView(SysAdminRequiredMixin, DetailView):
+
+    model = DocumentationRecord
+    template_name = 'system_maintenance/documentation_record_detail.html'
+
+
+class DocumentationRecordListView(SysAdminRequiredMixin, ListView):
+
+    model = DocumentationRecord
+    paginate_by = 30
+    template_name = 'system_maintenance/documentation_record_list.html'
+
+
 class MaintenanceRecordDetailView(SysAdminRequiredMixin, DetailView):
 
     model = MaintenanceRecord
