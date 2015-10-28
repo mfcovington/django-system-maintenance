@@ -1,3 +1,5 @@
+{% load humanize %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +32,7 @@
       <p>
         <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
           <a class="btn btn-info" href="{% url 'system_maintenance:maintenance_record_list' %}" role="button">
-            {{ maintenance_record_count }} Maintenance Record{{ maintenance_record_count|pluralize }}
+            {{ maintenance_record_count|intcomma }} Maintenance Record{{ maintenance_record_count|pluralize }}
           </a>
           {% if user.is_staff %}
             <a class="btn btn-info" href="{% url 'admin:system_maintenance_maintenancerecord_changelist' %}" target="_blank" role="button">
@@ -41,7 +43,7 @@
 
         <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
           <a class="btn btn-info" href="#" role="button">
-            {{ maintenance_type_count }} Maintenance Type{{ maintenance_type_count|pluralize }}
+            {{ maintenance_type_count|intcomma }} Maintenance Type{{ maintenance_type_count|pluralize }}
           </a>
           {% if user.is_staff %}
             <a class="btn btn-info" href="{% url 'admin:system_maintenance_maintenancetype_changelist' %}" target="_blank" role="button">
@@ -52,7 +54,7 @@
 
         <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
           <a class="btn btn-info" href="#" role="button">
-            {{ hardware_count }} Type{{ hardware_count|pluralize }} of Hardware
+            {{ hardware_count|intcomma }} Type{{ hardware_count|pluralize }} of Hardware
           </a>
           {% if user.is_staff %}
             <a class="btn btn-info" href="{% url 'admin:system_maintenance_hardware_changelist' %}" target="_blank" role="button">
@@ -63,7 +65,7 @@
 
         <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
           <a class="btn btn-info" href="#" role="button">
-            {{ software_count }} Software Package{{ software_count|pluralize }}
+            {{ software_count|intcomma }} Software Package{{ software_count|pluralize }}
           </a>
           {% if user.is_staff %}
             <a class="btn btn-info" href="{% url 'admin:system_maintenance_software_changelist' %}" target="_blank" role="button">
@@ -74,7 +76,7 @@
 
         <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
           <a class="btn btn-info" href="#" role="button">
-            {{ system_count }} System{{ system_count|pluralize }}
+            {{ system_count|intcomma }} System{{ system_count|pluralize }}
           </a>
           {% if user.is_staff %}
             <a class="btn btn-info" href="{% url 'admin:system_maintenance_system_changelist' %}" target="_blank" role="button">
@@ -85,7 +87,7 @@
 
         <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
           <a class="btn btn-info" href="#" role="button">
-            {{ sys_admin_count }} System Administrator{{ sys_admin_count|pluralize }}
+            {{ sys_admin_count|intcomma }} System Administrator{{ sys_admin_count|pluralize }}
           </a>
           {% if user.is_staff %}
             <a class="btn btn-info" href="{% url 'admin:system_maintenance_sysadmin_changelist' %}" target="_blank" role="button">
