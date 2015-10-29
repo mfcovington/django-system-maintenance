@@ -1,7 +1,9 @@
 {% load humanize %}
 
 {% with singular_suffix|add:","|add:plural_suffix as pluralize_rule %}
-  <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
+
+  {# Non-Mobile: show button group with counts and link to admin #}
+  <div class="btn-group btn-group-lg hide-on-mobile" role="group" aria-label="...">
     <a class="btn btn-info" href="{% if list_url %}{% url list_url %}{% else %}#{% endif %}" role="button">
       {{ list_count|intcomma }} {{ label }}{{ list_count|pluralize:pluralize_rule }}
     </a>
@@ -11,4 +13,8 @@
       </a>
     {% endif %}
   </div>
+
+  {# Mobile: show simplified full-width button #}
+  <a class="btn btn-info btn-lg full-width-on-mobile show-on-mobile" href="{% if list_url %}{% url list_url %}{% else %}#{% endif %}" role="button">{{ label|add:plural_suffix }}</a>
+
 {% endwith %}
