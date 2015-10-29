@@ -66,7 +66,7 @@ class DocumentationRecord(models.Model):
 
     title = models.CharField(
         max_length=255,
-        help_text="Enter a breif, descriptive title for this documentation.",
+        help_text="Enter a brief, descriptive title for this documentation.",
         unique=True,
     )
 
