@@ -1,5 +1,4 @@
 {% extends "system_maintenance/base.html" %}
-{% load humanize %}
 
 {% block title %}System Maintenance{% endblock %}
 
@@ -17,82 +16,19 @@
       {% endif %}
 
       <p>
-        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
-          <a class="btn btn-info" href="{% url 'system_maintenance:maintenance_record_list' %}" role="button">
-            {{ maintenance_record_count|intcomma }} Maintenance Record{{ maintenance_record_count|pluralize }}
-          </a>
-          {% if user.is_staff %}
-            <a class="btn btn-info" href="{% url 'admin:system_maintenance_maintenancerecord_changelist' %}" target="_blank" role="button">
-              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-            </a>
-          {% endif %}
-        </div>
+        {% include "system_maintenance/_summary_button.html" with label="Maintenance Record" list_count=maintenance_record_count list_url="system_maintenance:maintenance_record_list" admin_url="admin:system_maintenance_maintenancerecord_changelist" singular_suffix="" plural_suffix="s" %}
 
-        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
-          <a class="btn btn-info" href="#" role="button">
-            {{ maintenance_type_count|intcomma }} Maintenance Type{{ maintenance_type_count|pluralize }}
-          </a>
-          {% if user.is_staff %}
-            <a class="btn btn-info" href="{% url 'admin:system_maintenance_maintenancetype_changelist' %}" target="_blank" role="button">
-              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-            </a>
-          {% endif %}
-        </div>
+        {% include "system_maintenance/_summary_button.html" with label="Maintenance Type" list_count=maintenance_type_count list_url="" admin_url="admin:system_maintenance_maintenancetype_changelist" singular_suffix="" plural_suffix="s" %}
 
-        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
-          <a class="btn btn-info" href="{% url 'system_maintenance:documentation_record_list' %}" role="button">
-            {{ documentation_record_count|intcomma }} Documentation Record{{ documentation_record_count|pluralize }}
-          </a>
-          {% if user.is_staff %}
-            <a class="btn btn-info" href="{% url 'admin:system_maintenance_documentationrecord_changelist' %}" target="_blank" role="button">
-              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-            </a>
-          {% endif %}
-        </div>
+        {% include "system_maintenance/_summary_button.html" with label="Documentation Record" list_count=documentation_record_count list_url="system_maintenance:documentation_record_list" admin_url="admin:system_maintenance_documentationrecord_changelist" singular_suffix="" plural_suffix="s" %}
 
-        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
-          <a class="btn btn-info" href="#" role="button">
-            {{ hardware_count|intcomma }} Type{{ hardware_count|pluralize }} of Hardware
-          </a>
-          {% if user.is_staff %}
-            <a class="btn btn-info" href="{% url 'admin:system_maintenance_hardware_changelist' %}" target="_blank" role="button">
-              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-            </a>
-          {% endif %}
-        </div>
+        {% include "system_maintenance/_summary_button.html" with label="Hardware Type" list_count=hardware_count list_url="" admin_url="admin:system_maintenance_hardware_changelist" singular_suffix="" plural_suffix="s" %}
 
-        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
-          <a class="btn btn-info" href="#" role="button">
-            {{ software_count|intcomma }} Software Package{{ software_count|pluralize }}
-          </a>
-          {% if user.is_staff %}
-            <a class="btn btn-info" href="{% url 'admin:system_maintenance_software_changelist' %}" target="_blank" role="button">
-              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-            </a>
-          {% endif %}
-        </div>
+        {% include "system_maintenance/_summary_button.html" with label="Software Package" list_count=software_count list_url="" admin_url="admin:system_maintenance_software_changelist" singular_suffix="" plural_suffix="s" %}
 
-        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
-          <a class="btn btn-info" href="#" role="button">
-            {{ system_count|intcomma }} System{{ system_count|pluralize }}
-          </a>
-          {% if user.is_staff %}
-            <a class="btn btn-info" href="{% url 'admin:system_maintenance_system_changelist' %}" target="_blank" role="button">
-              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-            </a>
-          {% endif %}
-        </div>
+        {% include "system_maintenance/_summary_button.html" with label="System" list_count=system_count list_url="" admin_url="admin:system_maintenance_system_changelist" singular_suffix="" plural_suffix="s" %}
 
-        <div class="btn-group btn-group-lg full-width-on-mobile" role="group" aria-label="...">
-          <a class="btn btn-info" href="#" role="button">
-            {{ sys_admin_count|intcomma }} System Administrator{{ sys_admin_count|pluralize }}
-          </a>
-          {% if user.is_staff %}
-            <a class="btn btn-info" href="{% url 'admin:system_maintenance_sysadmin_changelist' %}" target="_blank" role="button">
-              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-            </a>
-          {% endif %}
-        </div>
+        {% include "system_maintenance/_summary_button.html" with label="System Administrator" list_count=sys_admin_count list_url="" admin_url="admin:system_maintenance_sysadmin_changelist" singular_suffix="" plural_suffix="s" %}
       </p>
 
     </div>
