@@ -15,6 +15,6 @@
   </div>
 
   {# Mobile: show simplified full-width button #}
-  <a class="btn btn-info btn-lg full-width-on-mobile show-on-mobile" href="{% if list_url %}{% url list_url %}{% else %}#{% endif %}" role="button">{{ label|add:plural_suffix }}</a>
+  <a class="btn btn-info btn-lg full-width-on-mobile show-on-mobile-block" href="{% if list_url %}{% url list_url %}{% else %}#{% endif %}" role="button">{{ label|add:plural_suffix }}</a>
 
 {% endwith %}

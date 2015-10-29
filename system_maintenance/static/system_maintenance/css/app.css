@@ -94,7 +94,8 @@ body {
 /* Visibility on Different Screen Sizes */
 /****************************************/
 
-.show-on-mobile {
+.show-on-mobile-block,
+.show-on-mobile-inline {
   display: none;
 }
 @media screen and (max-width: 450px) {
@@ -104,7 +105,10 @@ body {
   .hide-on-mobile {
     display: none;
   }
-  .show-on-mobile {
+  .show-on-mobile-block {
+    display: block;
+  }
+  .show-on-mobile-inline {
     display: inline;
   }
 }
