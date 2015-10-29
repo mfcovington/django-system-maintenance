@@ -20,19 +20,17 @@
         <p><strong>Updated:</strong> {{ object.updated_at }}</p>
       {% endif %}
 
-      <p>
-        {% if object.documentation.raw %}
-          <a class="btn btn-info btn-lg full-width-on-mobile" href="#documentation" role="button">Documentation</a>
-        {% endif %}
+      {% if object.documentation.raw %}
+        <a class="btn btn-info btn-lg full-width-on-mobile" href="#documentation" role="button">Documentation</a>
+      {% endif %}
 
-        {% include "system_maintenance/_related_records_button.html" with label="Maintenance Record" record_count=object.maintenance_records.count anchor="maintenance-records" singular_suffix="" plural_suffix="s" %}
+      {% include "system_maintenance/_related_records_button.html" with label="Maintenance Record" record_count=object.maintenance_records.count anchor="maintenance-records" singular_suffix="" plural_suffix="s" %}
 
-        {% if user.is_staff %}
-          <a class="btn btn-primary btn-lg full-width-on-mobile" href="{% url 'admin:system_maintenance_documentationrecord_change' object.id %}" target="_blank" role="button">
-            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-          </a>
-        {% endif %}
-      </p>
+      {% if user.is_staff %}
+        <a class="btn btn-primary btn-lg full-width-on-mobile" href="{% url 'admin:system_maintenance_documentationrecord_change' object.id %}" target="_blank" role="button">
+          <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+        </a>
+      {% endif %}
 
     </div>
 

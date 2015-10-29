@@ -48,29 +48,27 @@
 
       <p><strong>Status:</strong> {{ object.status }}</p>
 
-      <p>
-        {% if object.description.raw %}
-          <a class="btn btn-info btn-lg full-width-on-mobile" href="#description" role="button">Description</a>
-        {% endif %}
+      {% if object.description.raw %}
+        <a class="btn btn-info btn-lg full-width-on-mobile" href="#description" role="button">Description</a>
+      {% endif %}
 
-        {% if object.procedure.raw %}
-          <a class="btn btn-success btn-lg full-width-on-mobile" href="#procedure" role="button">Procedure</a>
-        {% endif %}
+      {% if object.procedure.raw %}
+        <a class="btn btn-success btn-lg full-width-on-mobile" href="#procedure" role="button">Procedure</a>
+      {% endif %}
 
-        {% if object.problems.raw %}
-          <a class="btn btn-danger btn-lg full-width-on-mobile" href="#problems" role="button">Problems</a>
-        {% endif %}
+      {% if object.problems.raw %}
+        <a class="btn btn-danger btn-lg full-width-on-mobile" href="#problems" role="button">Problems</a>
+      {% endif %}
 
-        {% include "system_maintenance/_related_records_button.html" with label="Related Document" record_count=object.documentation_records.count anchor="document-records" singular_suffix="" plural_suffix="s" %}
+      {% include "system_maintenance/_related_records_button.html" with label="Related Document" record_count=object.documentation_records.count anchor="document-records" singular_suffix="" plural_suffix="s" %}
 
-        {% include "system_maintenance/_related_records_button.html" with label="Related Record" record_count=object.referenced_records.count|add:object.referencing_records.count anchor="related-records" singular_suffix="" plural_suffix="s" %}
+      {% include "system_maintenance/_related_records_button.html" with label="Related Record" record_count=object.referenced_records.count|add:object.referencing_records.count anchor="related-records" singular_suffix="" plural_suffix="s" %}
 
-        {% if user.is_staff %}
-          <a class="btn btn-primary btn-lg full-width-on-mobile" href="{% url 'admin:system_maintenance_maintenancerecord_change' object.id %}" target="_blank" role="button">
-            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-          </a>
-        {% endif %}
-      </p>
+      {% if user.is_staff %}
+        <a class="btn btn-primary btn-lg full-width-on-mobile" href="{% url 'admin:system_maintenance_maintenancerecord_change' object.id %}" target="_blank" role="button">
+          <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+        </a>
+      {% endif %}
 
     </div>
 
