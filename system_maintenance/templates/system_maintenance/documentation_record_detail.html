@@ -25,14 +25,7 @@
           <a class="btn btn-info btn-lg full-width-on-mobile" href="#documentation" role="button">Documentation</a>
         {% endif %}
 
-        {% with object.maintenance_records.count as maintenance_record_count %}
-          {% if maintenance_record_count %}
-            <a class="btn btn-info btn-lg full-width-on-mobile" href="#maintenance-records" role="button">
-              <span class="hide-on-mobile">{{ maintenance_record_count }}</span>
-              Maintenance Record<span class="show-on-mobile">s</span><span class="hide-on-mobile">{{ maintenance_record_count|pluralize }}</span>
-            </a>
-          {% endif %}
-        {% endwith %}
+        {% include "system_maintenance/_related_records_button.html" with label="Maintenance Record" record_count=object.maintenance_records.count anchor="maintenance-records" singular_suffix="" plural_suffix="s" %}
 
         {% if user.is_staff %}
           <a class="btn btn-primary btn-lg full-width-on-mobile" href="{% url 'admin:system_maintenance_documentationrecord_change' object.id %}" target="_blank" role="button">

@@ -1,0 +1,8 @@
+{% if record_count %}
+  {% with singular_suffix|add:","|add:plural_suffix as pluralize_rule %}
+    <a class="btn btn-info btn-lg full-width-on-mobile" href="#{{ anchor }}" role="button">
+      <span class="hide-on-mobile">{{ record_count }}</span>
+      {{ label }}<span class="show-on-mobile">{{ plural_suffix }}</span><span class="hide-on-mobile">{{ record_count|pluralize:pluralize_rule }}</span>
+    </a>
+  {% endwith %}
+{% endif %}
