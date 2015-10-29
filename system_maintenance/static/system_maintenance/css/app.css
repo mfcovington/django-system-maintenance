@@ -40,6 +40,7 @@ a.documentation-title:hover {
 body {
   padding-top: 25px;
   padding-bottom: 25px;
+  word-wrap: break-word;
 }
 
 
