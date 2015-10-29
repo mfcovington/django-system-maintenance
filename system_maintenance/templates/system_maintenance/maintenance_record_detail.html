@@ -50,35 +50,37 @@
 
       <p>
         {% if object.description.raw %}
-          <a class="btn btn-info btn-lg" href="#description" role="button">Description</a>
+          <a class="btn btn-info btn-lg full-width-on-mobile" href="#description" role="button">Description</a>
         {% endif %}
 
         {% if object.procedure.raw %}
-          <a class="btn btn-success btn-lg" href="#procedure" role="button">Procedure</a>
+          <a class="btn btn-success btn-lg full-width-on-mobile" href="#procedure" role="button">Procedure</a>
         {% endif %}
 
         {% if object.problems.raw %}
-          <a class="btn btn-danger btn-lg" href="#problems" role="button">Problems</a>
+          <a class="btn btn-danger btn-lg full-width-on-mobile" href="#problems" role="button">Problems</a>
         {% endif %}
 
         {% with object.documentation_records.count as document_record_count %}
           {% if document_record_count %}
-            <a class="btn btn-info btn-lg" href="#document-records" role="button">
-              {{ document_record_count }} Relevant Document{{ document_record_count|pluralize }}
+            <a class="btn btn-info btn-lg full-width-on-mobile" href="#document-records" role="button">
+              <span class="hide-on-mobile">{{ document_record_count }}</span>
+              Related Document<span class="show-on-mobile">s</span><span class="hide-on-mobile">{{ document_record_count|pluralize }}</span>
             </a>
           {% endif %}
         {% endwith %}
 
         {% with object.referenced_records.count|add:object.referencing_records.count as related_record_count %}
           {% if related_record_count %}
-            <a class="btn btn-info btn-lg" href="#related-records" role="button">
-              {{ related_record_count }} Related Record{{ related_record_count|pluralize }}
+            <a class="btn btn-info btn-lg full-width-on-mobile" href="#related-records" role="button">
+              <span class="hide-on-mobile">{{ related_record_count }}</span>
+              Related Record<span class="show-on-mobile">s</span><span class="hide-on-mobile">{{ related_record_count|pluralize }}</span>
             </a>
           {% endif %}
         {% endwith %}
 
         {% if user.is_staff %}
-          <a class="btn btn-primary btn-lg" href="{% url 'admin:system_maintenance_maintenancerecord_change' object.id %}" target="_blank" role="button">
+          <a class="btn btn-primary btn-lg full-width-on-mobile" href="{% url 'admin:system_maintenance_maintenancerecord_change' object.id %}" target="_blank" role="button">
             <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
           </a>
         {% endif %}

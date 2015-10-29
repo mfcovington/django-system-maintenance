@@ -22,19 +22,20 @@
 
       <p>
         {% if object.documentation.raw %}
-          <a class="btn btn-info btn-lg" href="#documentation" role="button">Documentation</a>
+          <a class="btn btn-info btn-lg full-width-on-mobile" href="#documentation" role="button">Documentation</a>
         {% endif %}
 
         {% with object.maintenance_records.count as maintenance_record_count %}
           {% if maintenance_record_count %}
-            <a class="btn btn-info btn-lg" href="#maintenance-records" role="button">
-              {{ maintenance_record_count }} Related Maintenance Record{{ maintenance_record_count|pluralize }}
+            <a class="btn btn-info btn-lg full-width-on-mobile" href="#maintenance-records" role="button">
+              <span class="hide-on-mobile">{{ maintenance_record_count }}</span>
+              Maintenance Record<span class="show-on-mobile">s</span><span class="hide-on-mobile">{{ maintenance_record_count|pluralize }}</span>
             </a>
           {% endif %}
         {% endwith %}
 
         {% if user.is_staff %}
-          <a class="btn btn-primary btn-lg" href="{% url 'admin:system_maintenance_documentationrecord_change' object.id %}" target="_blank" role="button">
+          <a class="btn btn-primary btn-lg full-width-on-mobile" href="{% url 'admin:system_maintenance_documentationrecord_change' object.id %}" target="_blank" role="button">
             <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
           </a>
         {% endif %}

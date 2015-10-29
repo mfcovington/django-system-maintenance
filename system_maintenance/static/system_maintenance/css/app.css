@@ -62,6 +62,7 @@ body {
   margin-left: -13px;
 }
 
+
 /**********/
 /* Panels */
 /**********/
@@ -86,4 +87,24 @@ body {
 }
 .panel-footer.panel-success {
   background-color: #dff0d8;
+}
+
+
+/****************************************/
+/* Visibility on Different Screen Sizes */
+/****************************************/
+
+.show-on-mobile {
+  display: none;
+}
+@media screen and (max-width: 450px) {
+  .full-width-on-mobile {
+    width: 100%;
+  }
+  .hide-on-mobile {
+    display: none;
+  }
+  .show-on-mobile {
+    display: inline;
+  }
 }
