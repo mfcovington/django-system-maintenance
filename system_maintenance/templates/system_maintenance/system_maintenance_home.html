@@ -17,11 +17,11 @@
 
       {% include "system_maintenance/_summary_button.html" with label="Maintenance Record" list_count=maintenance_record_count list_url="system_maintenance:maintenance_record_list" admin_url="admin:system_maintenance_maintenancerecord_changelist" singular_suffix="" plural_suffix="s" %}
 
-      {% include "system_maintenance/_summary_button.html" with label="Maintenance Type" list_count=maintenance_type_count list_url="" admin_url="admin:system_maintenance_maintenancetype_changelist" singular_suffix="" plural_suffix="s" %}
-
       {% include "system_maintenance/_summary_button.html" with label="Documentation Record" list_count=documentation_record_count list_url="system_maintenance:documentation_record_list" admin_url="admin:system_maintenance_documentationrecord_changelist" singular_suffix="" plural_suffix="s" %}
 
       {% include "system_maintenance/_summary_button.html" with label="Hardware Type" list_count=hardware_count list_url="" admin_url="admin:system_maintenance_hardware_changelist" singular_suffix="" plural_suffix="s" %}
+
+      {% include "system_maintenance/_summary_button.html" with label="Maintenance Type" list_count=maintenance_type_count list_url="" admin_url="admin:system_maintenance_maintenancetype_changelist" singular_suffix="" plural_suffix="s" %}
 
       {% include "system_maintenance/_summary_button.html" with label="Software Package" list_count=software_count list_url="" admin_url="admin:system_maintenance_software_changelist" singular_suffix="" plural_suffix="s" %}
 
