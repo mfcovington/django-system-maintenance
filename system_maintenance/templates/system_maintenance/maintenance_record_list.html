@@ -1,0 +1,32 @@
+{% extends "system_maintenance/base.html" %}
+
+{% block title %}Maintenance Records{% endblock %}
+
+{% block content %}
+  <div class='container'>
+
+    <ol class="breadcrumb">
+      <li><a href="{% url 'system_maintenance:system_maintenance_home_view' %}">System Maintenance</a></li>
+      <li class="active">Maintenance Records</li>
+    </ol>
+
+    <div class="jumbotron">
+      <h1>Maintenance Records</h1>
+      <p>Background color indicates the status of the maintenance record:</p>
+      <ul>
+        <li>White: Complete</li>
+        <li>Yellow: In Progress</li>
+        <li>Red: Failed</li>
+      </ul>
+    </div>
+
+    <div class="list-group">
+      {% for record in object_list %}
+        {% include "system_maintenance/_maintenance_record_list_item.html" %}
+      {% endfor %}
+    </div>
+
+    {% include "system_maintenance/_pagination.html" %}
+
+  </div>
+{% endblock content %}

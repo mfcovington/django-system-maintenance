@@ -1,0 +1,82 @@
+{% extends "system_maintenance/base.html" %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+  <div class='container'>
+
+    <ol class="breadcrumb">
+      <li><a href="{% url 'system_maintenance:system_maintenance_home_view' %}">System Maintenance</a></li>
+      <li><a href="{% url 'system_maintenance:documentation_record_list' %}">Documentation Records</a></li>
+      <li class="active">{{ object }}</li>
+    </ol>
+
+    <a name='summary'></a>
+    <div class="jumbotron">
+      <h1>{{ object.title }}</h1>
+      <p><strong>Type:</strong> {{ object.maintenance_type }}</p>
+      <p><strong>Created:</strong> {{ object.created_at }}</p>
+      {% if object.created_at|date:'r' != object.updated_at|date:'r' %}
+        <p><strong>Updated:</strong> {{ object.updated_at }}</p>
+      {% endif %}
+
+      {% if object.documentation.raw %}
+        <a class="btn btn-info btn-lg full-width-on-mobile" href="#documentation" role="button">Documentation</a>
+      {% endif %}
+
+      {% include "system_maintenance/_related_records_button.html" with label="Maintenance Record" record_count=object.maintenance_records.count anchor="maintenance-records" singular_suffix="" plural_suffix="s" %}
+
+      {% if user.is_staff %}
+        <a class="btn btn-primary btn-lg full-width-on-mobile" href="{% url 'admin:system_maintenance_documentationrecord_change' object.id %}" target="_blank" role="button">
+          <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+        </a>
+      {% endif %}
+
+    </div>
+
+    {% if object.documentation.raw %}
+      <a name='documentation'></a>
+      <div class="panel panel-info">
+
+        <div class="panel-heading">
+          <h1 class="panel-title"><a href='#summary'>Documentation</a></h1>
+        </div>
+
+        <div class="panel-body">
+          {{ object.documentation }}
+        </div>
+
+        <a href='#documentation'>
+          <div class="panel-footer panel-info"></div>
+        </a>
+
+      </div>
+    {% endif %}
+
+    {% if object.maintenance_records.count %}
+      <a name='maintenance-records'></a>
+      <div class="panel panel-info">
+
+        <div class="panel-heading">
+          <h1 class="panel-title"><a href='#summary'>Related Maintenance Records</a></h1>
+        </div>
+
+        <div class="panel-body">
+
+          <div class="list-group">
+            {% for record in object.maintenance_records.all %}
+              {% include "system_maintenance/_maintenance_record_list_item.html" %}
+            {% endfor %}
+          </div>
+
+        </div>
+
+        <a href='#maintenance-records'>
+          <div class="panel-footer panel-info"></div>
+        </a>
+
+      </div>
+    {% endif %}
+
+  </div>
+{% endblock content %}

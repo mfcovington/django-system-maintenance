@@ -1,0 +1,34 @@
+{% extends "system_maintenance/base.html" %}
+
+{% block title %}System Maintenance{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="jumbotron">
+
+      <h1>System Maintenance</h1>
+      <p>System maintenance records and other important system administration information is accessible via the buttons below.</p>
+
+      {% if user.is_staff %}
+        <p>
+          To add or change system maintenance data, <span class="hide-on-mobile">click on the relevant <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> or</span> go to the <a href="{% url 'admin:app_list' 'system_maintenance' %}">System Maintenance Admin Page</a>.
+        </p>
+      {% endif %}
+
+      {% include "system_maintenance/_summary_button.html" with label="Maintenance Record" btn_type="primary" list_count=maintenance_record_count list_url="system_maintenance:maintenance_record_list" admin_url="admin:system_maintenance_maintenancerecord_changelist" singular_suffix="" plural_suffix="s" %}
+
+      {% include "system_maintenance/_summary_button.html" with label="Documentation Record" btn_type="primary" list_count=documentation_record_count list_url="system_maintenance:documentation_record_list" admin_url="admin:system_maintenance_documentationrecord_changelist" singular_suffix="" plural_suffix="s" %}
+
+      {% include "system_maintenance/_summary_button.html" with label="Hardware Type" btn_type="info" list_count=hardware_count list_url="" admin_url="admin:system_maintenance_hardware_changelist" singular_suffix="" plural_suffix="s" %}
+
+      {% include "system_maintenance/_summary_button.html" with label="Maintenance Type" btn_type="info" list_count=maintenance_type_count list_url="" admin_url="admin:system_maintenance_maintenancetype_changelist" singular_suffix="" plural_suffix="s" %}
+
+      {% include "system_maintenance/_summary_button.html" with label="Software Package" btn_type="info" list_count=software_count list_url="" admin_url="admin:system_maintenance_software_changelist" singular_suffix="" plural_suffix="s" %}
+
+      {% include "system_maintenance/_summary_button.html" with label="System" btn_type="info" list_count=system_count list_url="" admin_url="admin:system_maintenance_system_changelist" singular_suffix="" plural_suffix="s" %}
+
+      {% include "system_maintenance/_summary_button.html" with label="System Administrator" btn_type="info" list_count=sys_admin_count list_url="" admin_url="admin:system_maintenance_sysadmin_changelist" singular_suffix="" plural_suffix="s" %}
+
+    </div>
+  </div>
+{% endblock content %}

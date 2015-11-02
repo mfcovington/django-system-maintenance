@@ -1,0 +1,210 @@
+{% extends "system_maintenance/base.html" %}
+
+{% block title %}{{ object.system }} {{ object.datetime|date:'Y-m-d' }}{% endblock %}
+
+  {# I think I want who/when changed #}
+  {# Change list decorator #}
+  {# PROBABLY NOT, BECAUSE CHANGES HEIGHT OF FOOTER: On hover show up arrows on panel footer #}
+  {# PROBABLY NOT, BECAUSE CHANGES COLOR OF H1: Make entire panel header into link to summary? If so, show on hover? #}
+{% block content %}
+  <div class='container'>
+
+    <ol class="breadcrumb">
+      <li><a href="{% url 'system_maintenance:system_maintenance_home_view' %}">System Maintenance</a></li>
+      <li><a href="{% url 'system_maintenance:maintenance_record_list' %}">Maintenance Records</a></li>
+      <li class="active">{{ object }}</li>
+    </ol>
+
+    <a name='summary'></a>
+    <div class="jumbotron
+      {% if object.status == 'In Progress' %}alert-warning{% endif %}
+      {% if object.status == 'Failed' %}alert-danger{% endif %}
+    ">
+      <h1>{{ object.system }} <small>{{ object.datetime.date }}</small></h1>
+      <p><strong>Type:</strong> {{ object.maintenance_type }}</p>
+      <p><strong>Who:</strong> {{ object.sys_admin }}</p>
+
+      {% if object.hardware.count == 1 %}
+        <p><strong>Hardware:</strong> {{ object.hardware.first }}</p>
+      {% elif object.hardware.count > 1 %}
+        <p><strong>Hardware:</strong></p>
+        <ul>
+          {% for hardware in object.hardware.all %}
+            <li>{{ hardware }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if object.software.count == 1 %}
+        <p><strong>Software:</strong> {{ object.software.first }}</p>
+      {% elif object.software.count > 1 %}
+        <p><strong>Software:</strong></p>
+        <ul>
+          {% for software in object.software.all %}
+            <li>{{ software }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <p><strong>Status:</strong> {{ object.status }}</p>
+
+      {% if object.description.raw %}
+        <a class="btn btn-info btn-lg full-width-on-mobile" href="#description" role="button">Description</a>
+      {% endif %}
+
+      {% if object.procedure.raw %}
+        <a class="btn btn-success btn-lg full-width-on-mobile" href="#procedure" role="button">Procedure</a>
+      {% endif %}
+
+      {% if object.problems.raw %}
+        <a class="btn btn-danger btn-lg full-width-on-mobile" href="#problems" role="button">Problems</a>
+      {% endif %}
+
+      {% include "system_maintenance/_related_records_button.html" with label="Related Document" record_count=object.documentation_records.count anchor="document-records" singular_suffix="" plural_suffix="s" %}
+
+      {% include "system_maintenance/_related_records_button.html" with label="Related Record" record_count=object.referenced_records.count|add:object.referencing_records.count anchor="related-records" singular_suffix="" plural_suffix="s" %}
+
+      {% if user.is_staff %}
+        <a class="btn btn-primary btn-lg full-width-on-mobile" href="{% url 'admin:system_maintenance_maintenancerecord_change' object.id %}" target="_blank" role="button">
+          <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+        </a>
+      {% endif %}
+
+    </div>
+
+    {% if object.description.raw %}
+      <a name='description'></a>
+      <div class="panel panel-info">
+
+        <div class="panel-heading">
+          <h1 class="panel-title"><a href='#summary'>Description</a></h1>
+        </div>
+
+        <div class="panel-body">
+          {{ object.description }}
+        </div>
+
+        <a href='#description'>
+          <div class="panel-footer panel-info"></div>
+        </a>
+
+      </div>
+    {% endif %}
+
+    {% if object.procedure.raw %}
+      <a name='procedure'></a>
+      <div class="panel panel-success">
+
+        <div class="panel-heading">
+          <h1 class="panel-title"><a href='#summary'>Procedure</a></h1>
+        </div>
+
+        <div class="panel-body">
+          {{ object.procedure }}
+        </div>
+
+        <a href='#procedure'>
+          <div class="panel-footer panel-success"></div>
+        </a>
+
+      </div>
+    {% endif %}
+
+    {% if object.problems.raw %}
+      <a name='problems'></a>
+      <div class="panel panel-danger">
+
+        <div class="panel-heading">
+          <h1 class="panel-title"><a href='#summary'>Problems</a></h1>
+        </div>
+
+        <div class="panel-body">
+          {{ object.problems }}
+        </div>
+
+        <a href='#problems'>
+          <div class="panel-footer panel-danger"></div>
+        </a>
+
+      </div>
+    {% endif %}
+
+    {% if object.documentation_records.count %}
+      <a name='document-records'></a>
+      <div class="panel panel-info">
+
+        <div class="panel-heading">
+          <h1 class="panel-title"><a href='#summary'>Relevant Documents</a></h1>
+        </div>
+
+        <div class="panel-body">
+          <div class="list-group">
+            {% for documentation in object.documentation_records.all %}
+
+              <a href="{% url 'system_maintenance:documentation_record_detail' documentation.pk %}" class="list-group-item documentation-title">
+                <h5>
+                  {{ documentation.title }}
+                  <small>- {{ documentation.category }}</small>
+                  <br><small>Created: {{ documentation.created_at }}</small>
+                  {% if documentation.created_at|date:'r' != documentation.updated_at|date:'r' %}
+                    <br><small>Updated: {{ documentation.updated_at }}</small>
+                  {% endif %}
+                </h5>
+              </a>
+
+              <div class="list-group-item">
+                <div class="container-fluid">
+                  {{ documentation.documentation }}
+                </div>
+              </div>
+
+            {% endfor %}
+          </div>
+        </div>
+
+        <a href='#document-records'>
+          <div class="panel-footer panel-info"></div>
+        </a>
+
+      </div>
+    {% endif %}
+
+    {% if object.referenced_records.count or object.referencing_records.count %}
+      <a name='related-records'></a>
+      <div class="panel panel-info">
+
+        <div class="panel-heading">
+          <h1 class="panel-title"><a href='#summary'>Related Records</a></h1>
+        </div>
+
+        <div class="panel-body">
+
+          {% if object.referenced_records.count %}
+            <h4>See also:</h4>
+            <div class="list-group">
+              {% for record in object.referenced_records.all %}
+                {% include "system_maintenance/_maintenance_record_list_item.html" %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if object.referencing_records.count %}
+            <h4>Referenced by:</h4>
+            <div class="list-group">
+              {% for record in object.referencing_records.all %}
+                {% include "system_maintenance/_maintenance_record_list_item.html" %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+        </div>
+
+        <a href='#related-records'>
+          <div class="panel-footer panel-info"></div>
+        </a>
+
+      </div>
+    {% endif %}
+
+  </div>
+{% endblock content %}

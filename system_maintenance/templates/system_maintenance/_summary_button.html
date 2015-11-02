@@ -1,0 +1,20 @@
+{% load humanize %}
+
+{% with singular_suffix|add:","|add:plural_suffix as pluralize_rule %}
+
+  {# Non-Mobile: show button group with counts and link to admin #}
+  <div class="btn-group btn-group-lg hide-on-mobile" role="group" aria-label="...">
+    <a class="btn btn-{{ btn_type }}" href="{% if list_url %}{% url list_url %}{% else %}#{% endif %}" role="button">
+      {{ list_count|intcomma }} {{ label }}{{ list_count|pluralize:pluralize_rule }}
+    </a>
+    {% if user.is_staff %}
+      <a class="btn btn-{{ btn_type }}" href="{% url admin_url %}" target="_blank" role="button">
+        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+      </a>
+    {% endif %}
+  </div>
+
+  {# Mobile: show simplified full-width button #}
+  <a class="btn btn-{{ btn_type }} btn-lg full-width-on-mobile show-on-mobile-block" href="{% if list_url %}{% url list_url %}{% else %}#{% endif %}" role="button">{{ label|add:plural_suffix }}</a>
+
+{% endwith %}

@@ -1,0 +1,26 @@
+{% extends "system_maintenance/base.html" %}
+
+{% block title %}Documentation Records{% endblock %}
+
+{% block content %}
+  <div class='container'>
+
+    <ol class="breadcrumb">
+      <li><a href="{% url 'system_maintenance:system_maintenance_home_view' %}">System Maintenance</a></li>
+      <li class="active">Documentation Records</li>
+    </ol>
+
+    <div class="jumbotron">
+      <h1>Documentation Records</h1>
+    </div>
+
+    <div class="list-group">
+      {% for record in object_list %}
+        {% include "system_maintenance/_documentation_record_list_item.html" %}
+      {% endfor %}
+    </div>
+
+    {% include "system_maintenance/_pagination.html" %}
+
+  </div>
+{% endblock content %}

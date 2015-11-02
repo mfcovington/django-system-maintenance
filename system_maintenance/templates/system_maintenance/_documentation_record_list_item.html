@@ -1,0 +1,12 @@
+<a href="{% url 'system_maintenance:documentation_record_detail' record.pk %}" class="list-group-item">
+  <h5>
+    {{ record.title }}
+    <small>
+      - {{ record.maintenance_type }}
+      <br>Created: {{ record.created_at }}
+      {% if record.created_at|date:'r' != record.updated_at|date:'r' %}
+        <br>Updated: {{ record.updated_at }}
+      {% endif %}
+    </small>
+  </h5>
+</a>

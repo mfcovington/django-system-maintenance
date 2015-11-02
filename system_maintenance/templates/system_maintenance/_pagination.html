@@ -1,0 +1,39 @@
+{% if is_paginated %}
+  <nav>
+    <div class="text-center">
+      <ul class="pagination">
+
+        <li class="{% if not page_obj.has_previous %}disabled{% endif %}">
+          <a href="{% if page_obj.has_previous %}?page=1{% endif %}">
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+          </a>
+        </li>
+
+        <li class="{% if not page_obj.has_previous %}disabled{% endif %}">
+          <a href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% endif %}">
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+          </a>
+        </li>
+
+        <li class="disabled">
+          <a>{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</a>
+        </li>
+
+        <li class="{% if not page_obj.has_next %}disabled{% endif %}">
+          <a href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% endif %}">
+            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+          </a>
+        </li>
+
+        <li class="{% if not page_obj.has_next %}disabled{% endif %}">
+          <a href="{% if page_obj.has_next %}?page={{ page_obj.paginator.num_pages }}{% endif %}">
+            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+{% endif %}
