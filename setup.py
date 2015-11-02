@@ -25,13 +25,14 @@ install_requires = [
 
 setup(
     name='django-system-maintenance',
-    version='0.0.0',
+    version='0.1.0',
     packages=['system_maintenance'],
     include_package_data=True,
     license='BSD License',
     keywords='sysadmin system administration documentation maintenance',
     description='A Django app to document and track the administration and maintenance of computer systems',
-    long_description=(read('README.rst')),
+    long_description=(read('README.rst') + '\n\n' +
+                      read('CHANGELOG.rst')),
     url='https://github.com/mfcovington/django-system-maintenance',
     author='Michael F. Covington',
     author_email='mfcovington@gmail.com',

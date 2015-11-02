@@ -22,7 +22,7 @@ Source code is available on GitHub at `mfcovington/django-system-maintenance <ht
 
 .. .. code-block:: sh
 
-..     pip install https://github.com/mfcovington/django-system-maintenance/releases/download/0.0.0/django-system-maintenance-0.0.0.tar.gz
+..     pip install https://github.com/mfcovington/django-system-maintenance/releases/download/0.1.0/django-system-maintenance-0.1.0.tar.gz
 
 
 Configuration
@@ -73,4 +73,4 @@ Usage
 - Visit: ``http://127.0.0.1:8000/system_maintenance/``
 
 
-*Version 0.0.0*
+*Version 0.1.0*
