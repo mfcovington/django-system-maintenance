@@ -1,0 +1,4 @@
+include LICENSE
+include README.rst
+recursive-include system_maintenance/static *
+recursive-include system_maintenance/templates *
