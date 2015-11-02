@@ -9,20 +9,20 @@ Source code is available on GitHub at `mfcovington/django-system-maintenance <ht
 .. contents:: :local:
 
 
-.. Installation
-.. ============
+Installation
+============
 
-.. **PyPI**
+**PyPI**
 
-.. .. code-block:: sh
+.. code-block:: sh
 
-..     pip install django-system-maintenance
+    pip install django-system-maintenance
 
-.. **GitHub**
+**GitHub**
 
-.. .. code-block:: sh
+.. code-block:: sh
 
-..     pip install https://github.com/mfcovington/django-system-maintenance/releases/download/0.1.0/django-system-maintenance-0.1.0.tar.gz
+    pip install https://github.com/mfcovington/django-system-maintenance/releases/download/0.1.0/django-system-maintenance-0.1.0.tar.gz
 
 
 Configuration
