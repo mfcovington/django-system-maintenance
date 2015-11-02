@@ -3,6 +3,7 @@
 /***************/
 
 /* Scroll instead of wrap */
+pre,
 pre > code {
   overflow-x: scroll;
   white-space: pre;
