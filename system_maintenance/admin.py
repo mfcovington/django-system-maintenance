@@ -59,6 +59,7 @@ class DocumentationRecordAdmin(admin.ModelAdmin):
     fieldset_description = ('Documentation', {
         'fields': [
             'documentation',
+            'documentation_markup_type',
         ],
     })
 
