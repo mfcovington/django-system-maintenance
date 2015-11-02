@@ -52,7 +52,7 @@ class DocumentationRecordAdmin(admin.ModelAdmin):
     fieldset_basic = ('Basic', {
         'fields': [
             'title',
-            'category',
+            'maintenance_type'
         ],
     })
 
@@ -86,13 +86,13 @@ class DocumentationRecordAdmin(admin.ModelAdmin):
 
     list_display = [
         'title',
-        'category',
+        'maintenance_type',
         'created_at',
         'updated_at',
     ]
 
     list_filter = [
-        'category',
+        'maintenance_type',
     ]
 
     readonly_fields = [

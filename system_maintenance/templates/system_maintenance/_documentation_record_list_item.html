@@ -2,7 +2,7 @@
   <h5>
     {{ record.title }}
     <small>
-      - {{ record.category }}
+      - {{ record.maintenance_type }}
       <br>Created: {{ record.created_at }}
       {% if record.created_at|date:'r' != record.updated_at|date:'r' %}
         <br>Updated: {{ record.updated_at }}

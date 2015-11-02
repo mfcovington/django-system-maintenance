@@ -14,7 +14,7 @@
     <a name='summary'></a>
     <div class="jumbotron">
       <h1>{{ object.title }}</h1>
-      <p><strong>Category:</strong> {{ object.category }}</p>
+      <p><strong>Type:</strong> {{ object.maintenance_type }}</p>
       <p><strong>Created:</strong> {{ object.created_at }}</p>
       {% if object.created_at|date:'r' != object.updated_at|date:'r' %}
         <p><strong>Updated:</strong> {{ object.updated_at }}</p>

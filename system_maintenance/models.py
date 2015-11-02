@@ -36,15 +36,6 @@ STATUS_CHOICES = [
     ('Failed', 'Failed'),
 ]
 
-SYSADMIN_CATEGORIES = [
-    ('Account', 'Account'),
-    ('Hardware', 'Hardware'),
-    ('Software', 'Software'),
-    ('System Administration', 'System Administration'),
-    ('Website', 'Website'),
-    ('Other', 'Other'),
-]
-
 
 class Hardware(models.Model):
 
@@ -70,11 +61,9 @@ class DocumentationRecord(models.Model):
         unique=True,
     )
 
-    category = models.CharField(
-        choices = SYSADMIN_CATEGORIES,
-        # default='in_progress',
-        help_text='What is this documentation about?',
-        max_length=25,
+    maintenance_type = models.ForeignKey(
+        'MaintenanceType',
+        help_text='Select/Create a maintenance type.',
     )
 
     documentation = MarkupField(
