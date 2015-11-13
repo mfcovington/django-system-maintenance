@@ -28,7 +28,7 @@ Installation
 Configuration
 =============
 
-Add ``system_maintenance`` and its dependencies to ``INSTALLED_APPS``in ``settings.py``:
+Add ``system_maintenance`` and its dependencies to ``INSTALLED_APPS`` in ``settings.py``:
 
 .. code-block:: python
 
@@ -46,6 +46,13 @@ Add the ``system_maintenance`` URLs to the site's ``urls.py``:
         ...
         url(r'^system_maintenance/', include('system_maintenance.urls', namespace='system_maintenance')),
     ]
+
+
+By default, lists of maintenance records, etc. are paginated with 30 records per page. This value can be customaized in ``settings.py``:
+
+.. code-block:: python
+
+    SYSTEM_MAINTENANCE_PAGINATE_BY = 50
 
 
 Migrations

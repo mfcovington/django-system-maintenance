@@ -8,6 +8,7 @@ from django.views.generic import DetailView, ListView
 
 from .models import (DocumentationRecord, Hardware, MaintenanceRecord,
     MaintenanceType, Software, SysAdmin, System)
+from .settings import SYSTEM_MAINTENANCE_PAGINATE_BY
 
 
 def user_passes_test_or_404(test_func, message='User test failed.'):
@@ -66,7 +67,7 @@ class DocumentationRecordDetailView(SysAdminRequiredMixin, DetailView):
 class DocumentationRecordListView(SysAdminRequiredMixin, ListView):
 
     model = DocumentationRecord
-    paginate_by = 30
+    paginate_by = SYSTEM_MAINTENANCE_PAGINATE_BY
     template_name = 'system_maintenance/documentation_record_list.html'
 
 
@@ -79,5 +80,5 @@ class MaintenanceRecordDetailView(SysAdminRequiredMixin, DetailView):
 class MaintenanceRecordListView(SysAdminRequiredMixin, ListView):
 
     model = MaintenanceRecord
-    paginate_by = 30
+    paginate_by = SYSTEM_MAINTENANCE_PAGINATE_BY
     template_name = 'system_maintenance/maintenance_record_list.html'
