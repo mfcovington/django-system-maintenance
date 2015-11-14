@@ -6,9 +6,9 @@ from django.shortcuts import render
 from django.utils.decorators import available_attrs, method_decorator
 from django.views.generic import DetailView, ListView
 
+from .app_settings import SYSTEM_MAINTENANCE_PAGINATE_BY
 from .models import (DocumentationRecord, Hardware, MaintenanceRecord,
     MaintenanceType, Software, SysAdmin, System)
-from .settings import SYSTEM_MAINTENANCE_PAGINATE_BY
 
 
 def user_passes_test_or_404(test_func, message='User test failed.'):
