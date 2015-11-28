@@ -1,0 +1,34 @@
+{% extends "system_maintenance/base.html" %}
+
+{% block title %}System Maintenance{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+
+    {% if not user.is_authenticated %}
+
+      <form action="{% url 'system_maintenance:authentication' %}?next={{ request.GET.next }}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Login">
+      </form>
+
+    {% else %}
+
+      <h1>Access denied.</h1>
+
+      {% if not user.is_active %}
+        <p>Hello {{ user.first_name|default:user }}. Your account is inactive.</p>
+      {% else %}
+        <p>Hello {{ user.first_name|default:user }}. You are not a system administrator.</p>
+      {% endif %}
+
+      <input class="btn btn-default" value="Previous Page" onClick="javascript:history.go(-1);">
+      <a class="btn btn-default" href="{% url 'system_maintenance:logout' %}?next={{ request.GET.next }}">Logout</a>
+
+    {% endif %}
+
+  </div>
+
+{% endblock content %}

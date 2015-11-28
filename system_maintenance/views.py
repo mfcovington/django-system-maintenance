@@ -29,6 +29,18 @@ def user_passes_test_or_404(test_func, message='User test failed.'):
     return decorator
 
 
+def sysadmin_check(user):
+    print(dir(user))
+    try:
+        user.sysadmin
+    except:
+        is_sysadmin = False
+    else:
+        is_sysadmin = True
+
+    return user.is_active and is_sysadmin
+
+
 class SysAdminRequiredMixin(object):
 
     @method_decorator(user_passes_test_or_404(
@@ -39,10 +51,7 @@ class SysAdminRequiredMixin(object):
         return super(SysAdminRequiredMixin, self).dispatch(*args, **kwargs)
 
 
-@user_passes_test_or_404(
-    lambda u: u in [s.user for s in SysAdmin.objects.all()],
-    'Current user is not a system administrator.'
-)
+@user_passes_test(sysadmin_check, login_url='authentication/')
 def system_maintenance_home_view(request):
     context = {
         'documentation_record_count':
