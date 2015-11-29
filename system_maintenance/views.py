@@ -1,6 +1,7 @@
 from functools import wraps
 
 from django.contrib.auth.decorators import user_passes_test
+from django.core.urlresolvers import reverse_lazy
 from django.http import Http404
 from django.shortcuts import render
 from django.utils.decorators import available_attrs, method_decorator
@@ -9,24 +10,6 @@ from django.views.generic import DetailView, ListView
 from .app_settings import SYSTEM_MAINTENANCE_PAGINATE_BY
 from .models import (DocumentationRecord, Hardware, MaintenanceRecord,
     MaintenanceType, Software, SysAdmin, System)
-
-
-def user_passes_test_or_404(test_func, message='User test failed.'):
-    """
-    Decorator for views that checks that the user passes the given test,
-    redirecting to the 404 page if the test fails. The test should be a
-    callable that takes the user object and returns True if the user passes.
-    """
-
-    def decorator(view_func):
-        @wraps(view_func, assigned=available_attrs(view_func))
-        def _wrapped_view(request, *args, **kwargs):
-            if test_func(request.user):
-                return view_func(request, *args, **kwargs)
-            else:
-                raise Http404(message)
-        return _wrapped_view
-    return decorator
 
 
 def sysadmin_check(user):
@@ -45,16 +28,20 @@ def sysadmin_check(user):
 
 
 class SysAdminRequiredMixin(object):
+    """
+    Checks whether user is a sysadmin and has an active account.
+    """
 
-    @method_decorator(user_passes_test_or_404(
-        lambda u: u in [s.user for s in SysAdmin.objects.all()],
-        'Current user is not a system administrator.'
-    ))
+    @method_decorator(user_passes_test(
+        sysadmin_check,
+        login_url=reverse_lazy('system_maintenance:authentication')))
     def dispatch(self, *args, **kwargs):
         return super(SysAdminRequiredMixin, self).dispatch(*args, **kwargs)
 
 
-@user_passes_test(sysadmin_check, login_url='authentication/')
+@user_passes_test(
+    sysadmin_check,
+    login_url=reverse_lazy('system_maintenance:authentication'))
 def system_maintenance_home_view(request):
     context = {
         'documentation_record_count':
