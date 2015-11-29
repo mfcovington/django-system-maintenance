@@ -30,7 +30,10 @@ def user_passes_test_or_404(test_func, message='User test failed.'):
 
 
 def sysadmin_check(user):
-    print(dir(user))
+    """
+    Check whether user is a sysadmin and has an active account.
+    """
+
     try:
         user.sysadmin
     except:
