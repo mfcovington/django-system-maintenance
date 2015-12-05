@@ -18,11 +18,12 @@ Installation
 
     pip install django-system-maintenance
 
-**GitHub**
+
+**GitHub (development branch)**
 
 .. code-block:: sh
 
-    pip install https://github.com/mfcovington/django-system-maintenance/releases/download/0.1.0/django-system-maintenance-0.1.0.tar.gz
+    pip install git+http://github.com/mfcovington/django-system-maintenance.git@develop
 
 
 Configuration
