@@ -36,7 +36,7 @@ Add ``system_maintenance`` and its dependencies to ``INSTALLED_APPS`` in ``setti
     INSTALLED_APPS = (
         ...
         'django.contrib.humanize',
-        'system_maintenance',
+        'system_maintenance.apps.SystemMaintenanceConfig',
     )
 
 Add the ``system_maintenance`` URLs to the site's ``urls.py``:
