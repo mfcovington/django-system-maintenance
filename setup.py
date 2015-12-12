@@ -20,12 +20,12 @@ install_requires = [
     "django-markupfield>=1.3.5",
     "docutils>=0.12",
     "markdown2>=2.3.0",
-    "Pygments>=2.0.2"
+    "Pygments>=2.0.2",
 ]
 
 setup(
     name='django-system-maintenance',
-    version='0.1.0',
+    version='0.2.0',
     packages=['system_maintenance'],
     include_package_data=True,
     license='BSD License',
