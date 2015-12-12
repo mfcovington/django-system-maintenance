@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
+from django.utils.html import escape, linebreaks, urlize
 
 import markdown2
 from docutils.core import publish_parts

@@ -100,6 +100,8 @@ class DocumentationRecordAdmin(admin.ModelAdmin):
         'updated_at',
     ]
 
+    save_on_top = True
+
     search_fields = [
         'title',
         'documentation',
@@ -211,6 +213,8 @@ class MaintenanceRecordAdmin(admin.ModelAdmin):
         'software',
         'sys_admin',
     ]
+
+    save_on_top = True
 
     search_fields = [
         'description',

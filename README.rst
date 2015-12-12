@@ -9,26 +9,27 @@ Source code is available on GitHub at `mfcovington/django-system-maintenance <ht
 .. contents:: :local:
 
 
-.. Installation
-.. ============
+Installation
+============
 
-.. **PyPI**
+**PyPI**
 
-.. .. code-block:: sh
+.. code-block:: sh
 
-..     pip install django-system-maintenance
+    pip install django-system-maintenance
 
-.. **GitHub**
 
-.. .. code-block:: sh
+**GitHub (development branch)**
 
-..     pip install https://github.com/mfcovington/django-system-maintenance/releases/download/0.1.0/django-system-maintenance-0.1.0.tar.gz
+.. code-block:: sh
+
+    pip install git+http://github.com/mfcovington/django-system-maintenance.git@develop
 
 
 Configuration
 =============
 
-Add ``system_maintenance`` and its dependencies to ``INSTALLED_APPS``in ``settings.py``:
+Add ``system_maintenance`` and its dependencies to ``INSTALLED_APPS`` in ``settings.py``:
 
 .. code-block:: python
 
@@ -46,6 +47,13 @@ Add the ``system_maintenance`` URLs to the site's ``urls.py``:
         ...
         url(r'^system_maintenance/', include('system_maintenance.urls', namespace='system_maintenance')),
     ]
+
+
+By default, lists of maintenance records, etc. are paginated with 30 records per page. This value can be customaized in ``settings.py``:
+
+.. code-block:: python
+
+    SYSTEM_MAINTENANCE_PAGINATE_BY = 50
 
 
 Migrations
@@ -73,4 +81,4 @@ Usage
 - Visit: ``http://127.0.0.1:8000/system_maintenance/``
 
 
-*Version 0.1.0*
+*Version 0.2.0*

@@ -1,0 +1,81 @@
+{% extends "system_maintenance/base.html" %}
+
+{% block title %}System Maintenance{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+
+    {% if not user.is_authenticated %}
+
+      <div class="row">
+        {% for error in form.non_field_errors %}
+          <div class="alert alert-danger alert-dismissible col-sm-offset-2 col-sm-8" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ error }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <h1 class="text-center">SysAdmin Authentication</h1>
+      <hr>
+
+      <form class="form-horizontal" role="form" action="{% url 'system_maintenance:authentication' %}?next={{ request.GET.next }}" method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label class="control-label col-sm-offset-2 col-sm-2 hidden-xs" for="id_username">Username:</label>
+          <div class="col-sm-4">
+            <input id="id_username" class="form-control" maxlength="254" name="username" type="text" placeholder="Enter username" autofocus>
+          </div>
+        </div>
+
+        {% for error in form.username.errors %}
+          <div class="row">
+            <div class="field-error col-sm-offset-4 col-sm-4">
+              <strong>{{ error }}</strong>
+            </div>
+          </div>
+        {% endfor %}
+
+        <div class="form-group">
+          <label class="control-label col-sm-offset-2 col-sm-2 hidden-xs" for="id_password">Password:</label>
+          <div class="col-sm-4">
+            <input id="id_password" class="form-control" name="password" type="password" placeholder="Enter password">
+          </div>
+        </div>
+
+        {% for error in form.password.errors %}
+          <div class="row">
+            <div class="field-error col-sm-offset-4 col-sm-4">
+              <strong>{{ error }}</strong>
+            </div>
+          </div>
+        {% endfor %}
+
+        <div class="form-group">
+          <div class="col-sm-offset-4 col-sm-4">
+            <button type="submit" class="btn btn-primary" style="width:100%">Login</button>
+          </div>
+        </div>
+
+      </form>
+
+    {% else %}
+
+      <h1>Access denied.</h1>
+
+      {% if not user.is_active %}
+        <p>Hello {{ user.first_name|default:user }}. Your account is inactive.</p>
+      {% else %}
+        <p>Hello {{ user.first_name|default:user }}. You are not a system administrator.</p>
+      {% endif %}
+
+      <input class="btn btn-default" value="Previous Page" onClick="javascript:history.go(-1);">
+      <a class="btn btn-default" href="{% url 'system_maintenance:logout' %}?next={{ request.GET.next }}">Logout</a>
+
+    {% endif %}
+
+  </div>
+
+{% endblock content %}
