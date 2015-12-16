@@ -62,11 +62,15 @@ class CommonViewTests:
         """
         url = reverse(self.namespace)
         response = self.client.get(url)
-        self.assertContains(response, 'bootstrap.min.css')
-        self.assertContains(response, 'bootstrap.min.js')
-        self.assertContains(response, 'jquery.min.js')
-        self.assertContains(response, '/static/system_maintenance/css/app.css')
-        self.assertContains(response, '/static/system_maintenance/js/app.js')
+        static_files = [
+            'bootstrap.min.css',
+            'bootstrap.min.js',
+            'jquery.min.js',
+            '/static/system_maintenance/css/app.css',
+            '/static/system_maintenance/js/app.js',
+        ]
+        for static in static_files:
+            self.assertContains(response, static)
 
     def test_view_returns_correct_html(self):
         """
@@ -130,17 +134,25 @@ class HomeViewTest(TestCase, CommonViewTests):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-        root = '/system_maintenance/'
-        self.assertContains(response, '{}records/'.format(root))
-        self.assertContains(response, '{}documentation/'.format(root))
+        app_urls = [
+            'records/',
+            'documentation/',
+        ]
+        for url in app_urls:
+            self.assertContains(response, '/system_maintenance/{}'.format(url))
+
         self.assertContains(
             response, 'System maintenance records and other important ' +
             'system administration information is accessible via the ' +
             'buttons below.')
 
-        self.assertNotContains(response, 'System Maintenance Admin Page')
-        self.assertNotContains(response, '/admin/system_maintenance/')
-        self.assertNotContains(response, 'glyphicon-wrench')
+        unexpected_superuser_only_content = [
+            'System Maintenance Admin Page',
+            '/admin/system_maintenance/',
+            'glyphicon-wrench',
+        ]
+        for content in unexpected_superuser_only_content:
+            self.assertNotContains(response, content)
 
     def test_view_returns_correct_html_for_superuser_sysadmin(self):
         """
@@ -152,14 +164,19 @@ class HomeViewTest(TestCase, CommonViewTests):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-        root = '/admin/system_maintenance/'
-        self.assertContains(response, '{}maintenancerecord/'.format(root))
-        self.assertContains(response, '{}documentationrecord/'.format(root))
-        self.assertContains(response, '{}hardware/'.format(root))
-        self.assertContains(response, '{}maintenancetype/'.format(root))
-        self.assertContains(response, '{}software/'.format(root))
-        self.assertContains(response, '{}system/'.format(root))
-        self.assertContains(response, '{}sysadmin/'.format(root))
+        model_names = [
+            'documentationrecord',
+            'hardware',
+            'maintenancerecord',
+            'maintenancetype',
+            'software',
+            'sysadmin',
+            'system',
+        ]
+        for model in model_names:
+            self.assertContains(
+                response, '/admin/system_maintenance/{}/'.format(model))
+
         self.assertContains(response, 'System Maintenance Admin Page')
         self.assertContains(response, 'glyphicon-wrench')
 
