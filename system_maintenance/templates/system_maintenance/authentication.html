@@ -20,7 +20,7 @@
       <h1 class="text-center">SysAdmin Authentication</h1>
       <hr>
 
-      <form class="form-horizontal" role="form" action="{% url 'system_maintenance:authentication' %}?next={{ request.GET.next }}" method="post">
+      <form class="form-horizontal" role="form" action="{% url 'system_maintenance:authentication' %}?next={% if request.GET.next %}{{ request.GET.next }}{% else %}{% url 'system_maintenance:system_maintenance_home_view' %}{% endif %}" method="post">
         {% csrf_token %}
 
         <div class="form-group">
