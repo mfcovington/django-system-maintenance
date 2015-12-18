@@ -111,6 +111,34 @@ class RedirectNonSysAdminUserToAuthenticationTest(TestCase, CustomAssertions):
             'system_maintenance:documentation_record_list')
 
 
+class AuthenticationViewTest(TestCase, CommonViewTests):
+
+    def setUp(self):
+
+            self.namespace = 'system_maintenance:authentication'
+            self.template = 'system_maintenance/authentication.html'
+            self.title = 'System Maintenance'
+            self.url = '/system_maintenance/authentication/'
+
+    def test_url_resolves_to_view(self):
+        found = resolve(self.url)
+        self.assertEqual(found.func, django.contrib.auth.views.login)
+
+    def test_view_returns_correct_html(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+        expected_content = [
+            'SysAdmin Authentication',
+            'Enter username',
+            'Enter password',
+            'Login',
+            '/system_maintenance/authentication/?next=/system_maintenance/',
+        ]
+        for content in expected_content:
+            self.assertContains(response, content)
+
+
 class HomeViewTest(TestCase, CommonViewTests):
 
     def setUp(self):
