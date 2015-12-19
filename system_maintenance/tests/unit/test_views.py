@@ -40,12 +40,7 @@ class CommonViewTests:
         Test that a given URL resolves to the correct view.
         """
         found = resolve(self.url)
-
-        if django.VERSION < (1, 8):
-            found_name = found.func.func_name
-        else:
-            found_name = found.func.__name__
-
+        found_name = found.func.__name__
         self.assertEqual(found_name, getattr(self.view, '__name__', None))
 
     def test_view_returns_correct_title(self):
