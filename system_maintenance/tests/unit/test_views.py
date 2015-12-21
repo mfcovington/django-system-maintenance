@@ -1,3 +1,5 @@
+import re
+
 import django
 from django.core.urlresolvers import resolve, reverse
 from django.template.loader import render_to_string
@@ -76,8 +78,12 @@ class CommonViewTests:
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
+        # CSRF tokens don't get render_to_string'd
+        csrf_regex = r'<input[^>]+csrfmiddlewaretoken[^>]+>'
+        observed_html = re.sub(csrf_regex, '', response.content.decode())
         expected_html = render_to_string(self.template)
-        self.assertEqual(response.content.decode(), expected_html)
+
+        self.assertEqual(observed_html, expected_html)
 
 
 class RedirectAnonymousUserToAuthenticationTest(TestCase, CustomAssertions):
@@ -118,20 +124,6 @@ class AuthenticationViewTest(TestCase, CommonViewTests):
     def test_url_resolves_to_view(self):
         found = resolve(self.url)
         self.assertEqual(found.func, django.contrib.auth.views.login)
-
-    def test_view_returns_correct_html(self):
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 200)
-
-        expected_content = [
-            'SysAdmin Authentication',
-            'Enter username',
-            'Enter password',
-            'Login',
-            '/system_maintenance/authentication/?next=/system_maintenance/',
-        ]
-        for content in expected_content:
-            self.assertContains(response, content)
 
 
 class HomeViewTest(TestCase, CommonViewTests):
@@ -215,14 +207,6 @@ class DocumentationRecordListViewTest(TestCase, CommonViewTests):
         self.title = 'Documentation Records'
         self.url = '/system_maintenance/documentation/'
         self.view = views.DocumentationRecordListView
-
-    def test_view_returns_correct_html(self):
-        url = reverse(self.namespace)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-        expected_html = render_to_string(self.template)
-        self.assertEqual(response.content.decode(), expected_html)
 
 
 class MaintenanceRecordListViewTest(TestCase, CommonViewTests):
