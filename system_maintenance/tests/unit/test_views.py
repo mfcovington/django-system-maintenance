@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from django.test import TestCase
 
 from system_maintenance import views
+from system_maintenance.models import DocumentationRecord, MaintenanceRecord
 from system_maintenance.tests.utilities import (
     CustomAssertions, login_normal_user, login_sysadmin_superuser,
     login_sysadmin_user, populate_test_db)
@@ -214,6 +215,10 @@ class DocumentationRecordListViewTest(TestCase, CommonViewTests):
         self.url = '/system_maintenance/documentation/'
         self.view = views.DocumentationRecordListView
 
+        self.context = {
+            'object_list': DocumentationRecord.objects.all(),
+        }
+
 
 class MaintenanceRecordListViewTest(TestCase, CommonViewTests):
 
@@ -226,3 +231,7 @@ class MaintenanceRecordListViewTest(TestCase, CommonViewTests):
         self.title = 'Maintenance Records'
         self.url = '/system_maintenance/records/'
         self.view = views.MaintenanceRecordListView
+
+        self.context = {
+            'object_list': MaintenanceRecord.objects.all(),
+        }
