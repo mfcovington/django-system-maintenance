@@ -30,7 +30,15 @@ class CommonViewTests:
             self.title = 'Documentation Records'
             self.url = '/system_maintenance/documentation/'
             self.view = views.DocumentationRecordListView
+
+            self.get_response()
     """
+
+    def get_response(self):
+        """
+        Get response based on URL.
+        """
+        self.response = self.client.get(self.url)
 
     def test_namespace_reverses_to_url(self):
         """
@@ -50,23 +58,19 @@ class CommonViewTests:
         """
         Test that view's response uses the correct template
         """
-        response = self.client.get(self.url)
-        self.assertTemplateUsed(response, self.template)
+        self.assertTemplateUsed(self.response, self.template)
 
     def test_view_returns_correct_title(self):
         """
         Test that view's response contains the correct page title.
         """
-        url = reverse(self.namespace)
-        response = self.client.get(url)
-        self.assertContains(response, '<title>{}</title>'.format(self.title))
+        self.assertContains(
+            self.response, '<title>{}</title>'.format(self.title))
 
     def test_view_returns_static_files_links(self):
         """
         Test that view's response contains links to the correct static files.
         """
-        url = reverse(self.namespace)
-        response = self.client.get(url)
         static_files = [
             'bootstrap.min.css',
             'bootstrap.min.js',
@@ -75,20 +79,18 @@ class CommonViewTests:
             '/static/system_maintenance/js/app.js',
         ]
         for static in static_files:
-            self.assertContains(response, static)
+            self.assertContains(self.response, static)
 
     def test_view_returns_correct_html(self):
         """
         Test that a view's response contains the correct HTML based on the
         template.
         """
-        url = reverse(self.namespace)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.response.status_code, 200)
 
         # CSRF tokens don't get render_to_string'd
         csrf_regex = r'<input[^>]+csrfmiddlewaretoken[^>]+>'
-        observed_html = re.sub(csrf_regex, '', response.content.decode())
+        observed_html = re.sub(csrf_regex, '', self.response.content.decode())
 
         try:
             context = self.context
@@ -135,6 +137,8 @@ class AuthenticationViewTest(TestCase, CommonViewTests):
             self.title = 'System Maintenance'
             self.url = '/system_maintenance/authentication/'
 
+        self.get_response()
+
     def test_url_resolves_to_view(self):
         found = resolve(self.url)
         self.assertEqual(found.func, auth_views.login)
@@ -151,6 +155,8 @@ class HomeViewTest(TestCase, CommonViewTests):
         self.title = 'System Maintenance'
         self.url = '/system_maintenance/'
 
+        self.get_response()
+
     def test_url_resolves_to_view(self):
         found = resolve(self.url)
         self.assertEqual(found.func, views.system_maintenance_home_view)
@@ -160,19 +166,18 @@ class HomeViewTest(TestCase, CommonViewTests):
         Test that normal system administrators have links to System
         Maintenance pages, but not admin pages.
         """
-        url = reverse(self.namespace)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.response.status_code, 200)
 
         app_urls = [
             'records/',
             'documentation/',
         ]
         for url in app_urls:
-            self.assertContains(response, '/system_maintenance/{}'.format(url))
+            self.assertContains(
+                self.response, '/system_maintenance/{}'.format(url))
 
         self.assertContains(
-            response, 'System maintenance records and other important ' +
+            self.response, 'System maintenance records and other important ' +
             'system administration information is accessible via the ' +
             'buttons below.')
 
@@ -182,7 +187,7 @@ class HomeViewTest(TestCase, CommonViewTests):
             'glyphicon-wrench',
         ]
         for content in unexpected_superuser_only_content:
-            self.assertNotContains(response, content)
+            self.assertNotContains(self.response, content)
 
     def test_view_returns_correct_html_for_superuser_sysadmin(self):
         """
@@ -190,9 +195,8 @@ class HomeViewTest(TestCase, CommonViewTests):
         Maintenance admin pages.
         """
         login_sysadmin_superuser(self)
-        url = reverse(self.namespace)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.get_response()
+        self.assertEqual(self.response.status_code, 200)
 
         model_names = [
             'documentationrecord',
@@ -205,10 +209,10 @@ class HomeViewTest(TestCase, CommonViewTests):
         ]
         for model in model_names:
             self.assertContains(
-                response, '/admin/system_maintenance/{}/'.format(model))
+                self.response, '/admin/system_maintenance/{}/'.format(model))
 
-        self.assertContains(response, 'System Maintenance Admin Page')
-        self.assertContains(response, 'glyphicon-wrench')
+        self.assertContains(self.response, 'System Maintenance Admin Page')
+        self.assertContains(self.response, 'glyphicon-wrench')
 
 
 class DocumentationRecordListViewTest(TestCase, CommonViewTests):
@@ -222,6 +226,8 @@ class DocumentationRecordListViewTest(TestCase, CommonViewTests):
         self.title = 'Documentation Records'
         self.url = '/system_maintenance/documentation/'
         self.view = views.DocumentationRecordListView
+
+        self.get_response()
 
         self.context = {
             'object_list': DocumentationRecord.objects.all(),
@@ -239,6 +245,8 @@ class MaintenanceRecordListViewTest(TestCase, CommonViewTests):
         self.title = 'Maintenance Records'
         self.url = '/system_maintenance/records/'
         self.view = views.MaintenanceRecordListView
+
+        self.get_response()
 
         self.context = {
             'object_list': MaintenanceRecord.objects.all(),
