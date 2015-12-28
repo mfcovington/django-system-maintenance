@@ -46,6 +46,13 @@ class CommonViewTests:
         found_name = found.func.__name__
         self.assertEqual(found_name, getattr(self.view, '__name__', None))
 
+    def test_view_uses_correct_template(self):
+        """
+        Test that view's response uses the correct template
+        """
+        response = self.client.get(self.url)
+        self.assertTemplateUsed(response, self.template)
+
     def test_view_returns_correct_title(self):
         """
         Test that view's response contains the correct page title.
@@ -140,6 +147,7 @@ class HomeViewTest(TestCase, CommonViewTests):
         login_sysadmin_user(self)
 
         self.namespace = 'system_maintenance:system_maintenance_home_view'
+        self.template = 'system_maintenance/system_maintenance_home.html'
         self.title = 'System Maintenance'
         self.url = '/system_maintenance/'
 
