@@ -154,7 +154,7 @@ class MaintenanceRecord(models.Model):
 
     status = models.CharField(
         choices = STATUS_CHOICES,
-        default='in_progress',
+        default='In Progress',
         help_text='What is the current status of the system maintenance?',
         max_length=15,
     )
