@@ -81,7 +81,13 @@ class CommonViewTests:
         # CSRF tokens don't get render_to_string'd
         csrf_regex = r'<input[^>]+csrfmiddlewaretoken[^>]+>'
         observed_html = re.sub(csrf_regex, '', response.content.decode())
-        expected_html = render_to_string(self.template)
+
+        try:
+            context = self.context
+        except AttributeError:
+            context = {}
+
+        expected_html = render_to_string(self.template, context)
 
         self.assertEqual(observed_html, expected_html)
 
