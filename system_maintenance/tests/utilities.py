@@ -1,7 +1,9 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
-from system_maintenance.models import SysAdmin
+from system_maintenance.models import (
+    DocumentationRecord, Hardware, MaintenanceRecord,
+    MaintenanceRecordRelationship, MaintenanceType, Software, SysAdmin, System)
 
 
 class CustomAssertions:
@@ -35,14 +37,71 @@ def populate_test_db():
     """
     User.objects.create_user(username='nonsysadmin', password='nonsysadmin')
 
-    sysadmin = User.objects.create_user(
+    sysadmin_user = User.objects.create_user(
         username='sysadmin', password='sysadmin')
-    SysAdmin.objects.create(user=sysadmin)
+    sysadmin = SysAdmin.objects.create(user=sysadmin_user)
 
-    supersysadmin = User.objects.create_superuser(
+    supersysadmin_user = User.objects.create_superuser(
         username='supersysadmin', password='supersysadmin',
         email='supersysadmin@supersysadmin')
-    SysAdmin.objects.create(user=supersysadmin)
+    supersysadmin = SysAdmin.objects.create(user=supersysadmin_user)
+
+    maintenance_type_1 = MaintenanceType.objects.create(
+        maintenance_type='Maintenance Type 1')
+    maintenance_type_2 = MaintenanceType.objects.create(
+        maintenance_type='Maintenance Type 2')
+
+    documentation_record_1 = DocumentationRecord.objects.create(
+        title='Documentation 1',
+        maintenance_type=maintenance_type_1,
+        documentation='',
+    )
+    documentation_record_2 = DocumentationRecord.objects.create(
+        title='Documentation 2',
+        maintenance_type=maintenance_type_2,
+        documentation='',
+    )
+
+    hardware = Hardware.objects.create(name='Hardware 1')
+    software = Software.objects.create(name='Software 1')
+    system = System.objects.create(name='System 1')
+
+    maintenance_record_1 = MaintenanceRecord.objects.create(
+        system=system,
+        sys_admin=sysadmin,
+        maintenance_type=maintenance_type_1,
+        description='',
+        procedure='',
+        problems='',
+    )
+    maintenance_record_1.hardware.add(hardware)
+
+    maintenance_record_2 = MaintenanceRecord.objects.create(
+        system=system,
+        sys_admin=supersysadmin,
+        maintenance_type=maintenance_type_2,
+        description='',
+        procedure='',
+        problems='',
+        status='Complete',
+    )
+    maintenance_record_2.software.add(software)
+    maintenance_record_2.documentation_records.add(documentation_record_1)
+    maintenance_record_2.documentation_records.add(documentation_record_2)
+
+    MaintenanceRecordRelationship.objects.create(
+        referenced_record=maintenance_record_1,
+        referencing_record=maintenance_record_2,
+    )
+
+    maintenance_record_3 = MaintenanceRecord.objects.create(
+        system=system,
+        sys_admin=sysadmin,
+        maintenance_type=maintenance_type_1,
+        status='Failed',
+    )
+    maintenance_record_3.hardware.add(hardware)
+    maintenance_record_3.software.add(software)
 
 
 def login_normal_user(self):
