@@ -34,6 +34,7 @@ class CustomAssertions:
 def populate_test_db():
     """
     Add records to an empty test database.
+    Returns a dict of the saved objects.
     """
     User.objects.create_user(username='nonsysadmin', password='nonsysadmin')
 
@@ -102,6 +103,23 @@ def populate_test_db():
     )
     maintenance_record_3.hardware.add(hardware)
     maintenance_record_3.software.add(software)
+
+    db_objects = {
+        'documentation_record_1': documentation_record_1,
+        'documentation_record_2': documentation_record_2,
+        'hardware': hardware,
+        'maintenance_record_1': maintenance_record_1,
+        'maintenance_record_2': maintenance_record_2,
+        'maintenance_record_3': maintenance_record_3,
+        'maintenance_type_1': maintenance_type_1,
+        'maintenance_type_2': maintenance_type_2,
+        'software': software,
+        'supersysadmin': supersysadmin,
+        'system': system,
+        'sysadmin': sysadmin,
+    }
+
+    return db_objects
 
 
 def login_normal_user(self):
