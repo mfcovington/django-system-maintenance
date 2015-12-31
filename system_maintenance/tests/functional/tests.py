@@ -149,3 +149,18 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.assertEqual(
             len(self.browser.find_elements_by_css_selector(
                 '.btn-group.hide-on-mobile > .btn')), 14)
+
+    def test_layout_and_styling(self):
+        # Go to the authentication page
+        self.browser.get(self.system_maintenance_url('authentication'))
+        window_width = 768
+        self.browser.set_window_size(window_width, window_width / 2)
+
+        # Username and password input boxes are centered
+        self.find_authentication_elements()
+        center_username = self.username_inputbox.location['x'] + \
+            self.username_inputbox.size['width'] / 2
+        center_password = self.password_inputbox.location['x'] + \
+            self.password_inputbox.size['width'] / 2
+        self.assertAlmostEqual(center_username, window_width / 2, delta=5)
+        self.assertAlmostEqual(center_password, window_width / 2, delta=5)
