@@ -4,8 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.color import Color
 
-from system_maintenance.tests.utilities import (
-    login_sysadmin_user, populate_test_db)
+from system_maintenance.tests.utilities import populate_test_db
 
 
 class FunctionalTest(StaticLiveServerTestCase):
