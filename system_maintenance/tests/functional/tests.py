@@ -31,6 +31,9 @@ class FunctionalTest(StaticLiveServerTestCase):
         return '{}/system_maintenance/{}'.format(
             self.live_server_url, url_stem)
 
+
+class AuthenticationTest(FunctionalTest):
+
     def test_can_login_as_sysadmin(self):
         # Try to go to the System Maintenance homepage
         self.browser.get(self.system_maintenance_url())
@@ -150,6 +153,9 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.assertEqual(
             len(self.browser.find_elements_by_css_selector(
                 '.btn-group.hide-on-mobile > .btn')), 14)
+
+
+class LayoutAndStylingTest(FunctionalTest):
 
     def test_layout_and_styling(self):
         # Go to the authentication page
