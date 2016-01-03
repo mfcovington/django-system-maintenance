@@ -131,11 +131,10 @@ class RedirectNonSysAdminUserToAuthenticationTest(TestCase, CustomAssertions):
 class AuthenticationViewTest(TestCase, CommonViewTests):
 
     def setUp(self):
-
-            self.namespace = 'system_maintenance:authentication'
-            self.template = 'system_maintenance/authentication.html'
-            self.title = 'System Maintenance'
-            self.url = '/system_maintenance/authentication/'
+        self.namespace = 'system_maintenance:authentication'
+        self.template = 'system_maintenance/authentication.html'
+        self.title = 'System Maintenance'
+        self.url = '/system_maintenance/authentication/'
 
         self.get_response()
 
