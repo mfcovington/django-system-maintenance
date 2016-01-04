@@ -1,35 +1,6 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-
-from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.color import Color
 
-from system_maintenance.tests.utilities import populate_test_db
-
-
-class FunctionalTest(StaticLiveServerTestCase):
-
-    def setUp(self):
-        populate_test_db()
-
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(3)
-
-        self.username_inputbox = None
-        self.password_inputbox = None
-        self.login_button = None
-
-    def tearDown(self):
-        self.browser.quit()
-
-    def find_authentication_elements(self):
-        self.username_inputbox = self.browser.find_element_by_id('id_username')
-        self.password_inputbox = self.browser.find_element_by_id('id_password')
-        self.login_button = self.browser.find_element_by_tag_name('button')
-
-    def system_maintenance_url(self, url_stem=''):
-        return '{}/system_maintenance/{}'.format(
-            self.live_server_url, url_stem)
+from .base import FunctionalTest
 
 
 class AuthenticationTest(FunctionalTest):
@@ -153,40 +124,3 @@ class AuthenticationTest(FunctionalTest):
         self.assertEqual(
             len(self.browser.find_elements_by_css_selector(
                 '.btn-group.hide-on-mobile > .btn')), 14)
-
-
-class LayoutAndStylingTest(FunctionalTest):
-
-    def test_layout_and_styling(self):
-        # Go to the authentication page
-        self.browser.get(self.system_maintenance_url('authentication'))
-        window_width = 768
-        self.browser.set_window_size(window_width, window_width / 2)
-
-        # Username and password input boxes are centered
-        self.find_authentication_elements()
-        center_username = self.username_inputbox.location['x'] + \
-            self.username_inputbox.size['width'] / 2
-        center_password = self.password_inputbox.location['x'] + \
-            self.password_inputbox.size['width'] / 2
-        self.assertAlmostEqual(center_username, window_width / 2, delta=5)
-        self.assertAlmostEqual(center_password, window_width / 2, delta=5)
-
-
-        # Sign in as sysadmin and go to Maintenance Records
-        self.browser.get(self.system_maintenance_url('records'))
-        self.find_authentication_elements()
-        self.username_inputbox.send_keys('sysadmin')
-        self.password_inputbox.send_keys('sysadmin' + Keys.ENTER)
-
-        # See, based on the color-coded backgrounds, that the status of the
-        # first record is 'Failed', the second is 'Complete', and the third is
-        # 'In Progress'
-        list_group_items = self.browser.find_elements_by_class_name(
-            'list-group-item')
-        background_colors = ['#f2dede', '#ffffff', '#fcf8e3']
-
-        self.assertEqual(len(list_group_items), 3)
-        for item, color in zip(list_group_items, background_colors):
-            self.assertEqual(Color.from_string(
-                item.value_of_css_property('background-color')).hex, color)
