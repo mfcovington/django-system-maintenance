@@ -1,4 +1,3 @@
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.color import Color
 
 from .base import FunctionalTest
@@ -24,9 +23,7 @@ class LayoutAndStylingTest(FunctionalTest):
 
         # Sign in as sysadmin and go to Maintenance Records
         self.browser.get(self.system_maintenance_url('records'))
-        self.find_authentication_elements()
-        self.username_inputbox.send_keys('sysadmin')
-        self.password_inputbox.send_keys('sysadmin' + Keys.ENTER)
+        self.login_as('sysadmin')
 
         # See, based on the color-coded backgrounds, that the status of the
         # first record is 'Failed', the second is 'Complete', and the third is

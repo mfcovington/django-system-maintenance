@@ -1,5 +1,3 @@
-from selenium.webdriver.common.keys import Keys
-
 from .base import FunctionalTest
 
 
@@ -42,14 +40,7 @@ class AuthenticationTest(FunctionalTest):
 
 
         # Enter incorrect credentials
-        self.find_authentication_elements()
-
-        self.username_inputbox.send_keys('nobody')
-        self.password_inputbox.send_keys('nobody')
-
-
-        # Hit 'Enter' key to submit
-        self.password_inputbox.send_keys(Keys.ENTER)
+        self.login_as('nobody')
 
 
         # See error message about entering correct username and password
@@ -60,10 +51,7 @@ class AuthenticationTest(FunctionalTest):
 
 
         # Enter non-sysadmin credentials
-        self.find_authentication_elements()
-
-        self.username_inputbox.send_keys('nonsysadmin')
-        self.password_inputbox.send_keys('nonsysadmin' + Keys.ENTER)
+        self.login_as('nonsysadmin')
 
 
         # See 'Access denied.' message about not being a sys admin
@@ -81,10 +69,8 @@ class AuthenticationTest(FunctionalTest):
 
 
         # Enter sysadmin credentials
-        self.find_authentication_elements()
+        self.login_as('sysadmin')
 
-        self.username_inputbox.send_keys('sysadmin')
-        self.password_inputbox.send_keys('sysadmin' + Keys.ENTER)
 
         # Check that redirected to System Maintenance home page
         self.assertIn('System Maintenance', self.browser.title)
@@ -106,10 +92,7 @@ class AuthenticationTest(FunctionalTest):
 
 
         # Enter superuser sysadmin credentials
-        self.find_authentication_elements()
-
-        self.username_inputbox.send_keys('supersysadmin')
-        self.password_inputbox.send_keys('supersysadmin' + Keys.ENTER)
+        self.login_as('supersysadmin')
 
 
         # Check that redirected to System Maintenance home page w/ admin access
