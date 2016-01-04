@@ -3,16 +3,14 @@ from .base import FunctionalTest
 
 class AuthenticationTest(FunctionalTest):
 
-    def test_can_login_as_sysadmin(self):
+    def test_anon_user_redirected_to_authentication(self):
         # Try to go to the System Maintenance homepage
         self.browser.get(self.system_maintenance_url())
-
 
         # Not logged in, so get redirected to the SysAdmin Authentication page
         self.assertIn('System Maintenance', self.browser.title)
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('SysAdmin Authentication', header_text)
-
 
         # See input boxes for username & password
         self.find_authentication_elements()
@@ -27,10 +25,13 @@ class AuthenticationTest(FunctionalTest):
 
         self.assertEqual(self.login_button.text, 'Login')
 
+    def test_username_and_password_required(self):
+        # Go to the authentication page
+        self.browser.get(self.system_maintenance_url('authentication'))
 
         # Accidentally click 'Login' button without entering credentials
+        self.find_authentication_elements()
         self.login_button.click()
-
 
         # See two error messages about required fields
         field_errors = self.browser.find_elements_by_class_name('field-error')
@@ -38,10 +39,12 @@ class AuthenticationTest(FunctionalTest):
         for error in field_errors:
             self.assertEqual(error.text, 'This field is required.')
 
+    def test_incorrect_credentials_raise_error(self):
+        # Go to the authentication page
+        self.browser.get(self.system_maintenance_url('authentication'))
 
         # Enter incorrect credentials
         self.login_as('nobody')
-
 
         # See error message about entering correct username and password
         self.assertIn(
@@ -49,10 +52,12 @@ class AuthenticationTest(FunctionalTest):
             'fields may be case-sensitive.',
             self.browser.find_element_by_class_name('alert-danger').text)
 
+    def test_nonsysadmin_is_denied_access_and_can_logout(self):
+        # Go to the authentication page
+        self.browser.get(self.system_maintenance_url('authentication'))
 
         # Enter non-sysadmin credentials
         self.login_as('nonsysadmin')
-
 
         # See 'Access denied.' message about not being a sys admin
         self.assertIn(
@@ -61,16 +66,16 @@ class AuthenticationTest(FunctionalTest):
             'Hello nonsysadmin. You are not a system administrator.',
             self.browser.find_element_by_tag_name('p').text)
 
-        # 'Previous Page' button.
-
         # Click 'Logout' button and get redirected to authentication page.
         self.logout_button = self.browser.find_element_by_tag_name('a')
         self.logout_button.click()
 
+    def test_can_login_as_sysadmin_and_can_logout(self):
+        # Go to the authentication page
+        self.browser.get(self.system_maintenance_url('authentication'))
 
         # Enter sysadmin credentials
         self.login_as('sysadmin')
-
 
         # Check that redirected to System Maintenance home page
         self.assertIn('System Maintenance', self.browser.title)
@@ -86,14 +91,17 @@ class AuthenticationTest(FunctionalTest):
             len(self.browser.find_elements_by_css_selector(
                 '.btn-group.hide-on-mobile > .btn')), 7)
 
-
-        # Logout
+        # Logout and get redirected to SysAdmin Authentication page
         self.browser.get(self.system_maintenance_url('logout'))
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('SysAdmin Authentication', header_text)
 
+    def test_can_login_as_super_sysadmin(self):
+        # Go to the authentication page
+        self.browser.get(self.system_maintenance_url('authentication'))
 
         # Enter superuser sysadmin credentials
         self.login_as('supersysadmin')
-
 
         # Check that redirected to System Maintenance home page w/ admin access
         self.assertIn('System Maintenance', self.browser.title)

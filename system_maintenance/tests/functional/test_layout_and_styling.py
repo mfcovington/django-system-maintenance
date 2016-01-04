@@ -5,7 +5,7 @@ from .base import FunctionalTest
 
 class LayoutAndStylingTest(FunctionalTest):
 
-    def test_layout_and_styling(self):
+    def test_authentication(self):
         # Go to the authentication page
         self.browser.get(self.system_maintenance_url('authentication'))
         window_width = 768
@@ -20,7 +20,7 @@ class LayoutAndStylingTest(FunctionalTest):
         self.assertAlmostEqual(center_username, window_width / 2, delta=5)
         self.assertAlmostEqual(center_password, window_width / 2, delta=5)
 
-
+    def test_maintenance_record_list(self):
         # Sign in as sysadmin and go to Maintenance Records
         self.browser.get(self.system_maintenance_url('records'))
         self.login_as('sysadmin')
