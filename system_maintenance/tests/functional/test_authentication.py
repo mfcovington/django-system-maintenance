@@ -34,10 +34,10 @@ class AuthenticationTest(FunctionalTest):
         self.login_button.click()
 
         # See two error messages about required fields
-        field_errors = self.browser.find_elements_by_class_name('field-error')
-        self.assertEqual(len(field_errors), 2)
-        for error in field_errors:
-            self.assertEqual(error.text, 'This field is required.')
+        form_errors = self.browser.find_elements_by_class_name('has-error')
+        self.assertEqual(len(form_errors), 2)
+        for error in form_errors:
+            self.assertIn('This field is required.', error.text)
 
     def test_incorrect_credentials_raise_error(self):
         # Go to the authentication page
