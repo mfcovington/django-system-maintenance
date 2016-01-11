@@ -1,9 +1,27 @@
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from system_maintenance.models import (
     DocumentationRecord, Hardware, MaintenanceRecord,
     MaintenanceRecordRelationship, MaintenanceType, Software, SysAdmin, System)
 from system_maintenance.tests.utilities import populate_test_db
+
+
+class MaintenanceRecordRelationshipTest(TestCase):
+
+    def setUp(self):
+        self.db_objects = populate_test_db()
+
+    def test_cannot_save_relationship_to_self(self):
+        record = self.db_objects['maintenance_record_1']
+        relationship = MaintenanceRecordRelationship(
+            referenced_record=record,
+            referencing_record=record,
+        )
+
+        with self.assertRaises(ValidationError):
+            relationship.save()
+            relationship.full_clean()
 
 
 class SaveAndRetrieveTests(TestCase):
