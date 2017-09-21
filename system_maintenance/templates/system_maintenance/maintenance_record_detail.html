@@ -76,9 +76,9 @@
       <a name='description'></a>
       <div class="panel panel-info">
 
-        <div class="panel-heading">
-          <h1 class="panel-title"><a href='#summary'>Description</a></h1>
-        </div>
+        {% with type_of_record='maintenance' record_pk=object.pk type_of_field='description' markup_type=object.description.markup_type %}
+            {% include "system_maintenance/_panel_heading.html" %}
+        {% endwith %}
 
         <div class="panel-body">
           {{ object.description }}
@@ -95,9 +95,9 @@
       <a name='procedure'></a>
       <div class="panel panel-success">
 
-        <div class="panel-heading">
-          <h1 class="panel-title"><a href='#summary'>Procedure</a></h1>
-        </div>
+        {% with type_of_record='maintenance' record_pk=object.pk type_of_field='procedure' markup_type=object.procedure.markup_type %}
+            {% include "system_maintenance/_panel_heading.html" %}
+        {% endwith %}
 
         <div class="panel-body">
           {{ object.procedure }}
@@ -114,9 +114,9 @@
       <a name='problems'></a>
       <div class="panel panel-danger">
 
-        <div class="panel-heading">
-          <h1 class="panel-title"><a href='#summary'>Problems</a></h1>
-        </div>
+        {% with type_of_record='maintenance' record_pk=object.pk type_of_field='problems' markup_type=object.problems.markup_type %}
+            {% include "system_maintenance/_panel_heading.html" %}
+        {% endwith %}
 
         <div class="panel-body">
           {{ object.problems }}

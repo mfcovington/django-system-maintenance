@@ -12,6 +12,25 @@ from .models import (DocumentationRecord, Hardware, MaintenanceRecord,
     MaintenanceType, Software, SysAdmin, System)
 
 
+def raw_view(request, *args, **kwargs):
+    if kwargs['type_of_record'] == 'documentation':
+        record = DocumentationRecord.objects.get(pk=kwargs['record_pk'])
+    elif kwargs['type_of_record'] == 'maintenance':
+        record = MaintenanceRecord.objects.get(pk=kwargs['record_pk'])
+    else:
+        pass
+
+    field = getattr(record, kwargs['type_of_field'])
+
+    context = {
+        'type_of_field': kwargs['type_of_field'],
+        'raw': field.raw,
+        'record': record,
+    }
+    return render(
+        request, 'system_maintenance/raw.html', context)
+
+
 def sysadmin_check(user):
     """
     Check whether user is a sysadmin and has an active account.

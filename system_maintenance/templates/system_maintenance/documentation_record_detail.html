@@ -38,9 +38,9 @@
       <a name='documentation'></a>
       <div class="panel panel-info">
 
-        <div class="panel-heading">
-          <h1 class="panel-title"><a href='#summary'>Documentation</a></h1>
-        </div>
+        {% with type_of_record='documentation' record_pk=object.pk type_of_field='documentation' markup_type=object.documentation.markup_type %}
+            {% include "system_maintenance/_panel_heading.html" %}
+        {% endwith %}
 
         <div class="panel-body">
           {{ object.documentation }}

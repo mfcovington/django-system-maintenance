@@ -1,0 +1,6 @@
+<div class="panel-heading">
+  <h1 class="panel-title">
+    <a href='#summary'>{{ type_of_field|title }}</a>
+    <small class="pull-right"><a href="{% url 'system_maintenance:raw_view' type_of_record=type_of_record record_pk=record_pk type_of_field=type_of_field %}" target="_blank">View raw {{ markup_type }}</a></small>
+  </h1>
+</div>
