@@ -35,22 +35,9 @@
     </div>
 
     {% if object.documentation.raw %}
-      <a name='documentation'></a>
-      <div class="panel panel-info">
-
-        {% with type_of_record='documentation' record_pk=object.pk type_of_field='documentation' markup_type=object.documentation.markup_type %}
-            {% include "system_maintenance/_panel_heading.html" %}
-        {% endwith %}
-
-        <div class="panel-body">
-          {{ object.documentation }}
-        </div>
-
-        <a href='#documentation'>
-          <div class="panel-footer panel-info"></div>
-        </a>
-
-      </div>
+      {% with type_of_record='documentation' record_pk=object.pk type_of_field='documentation' markup_type=object.documentation.markup_type panel_type='info' content=object.documentation %}
+        {% include "system_maintenance/_panel.html" %}
+      {% endwith %}
     {% endif %}
 
     {% if object.maintenance_records.count %}
