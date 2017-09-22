@@ -14,14 +14,7 @@ def sysadmin_check(user):
     Check whether user is a sysadmin and has an active account.
     """
 
-    try:
-        user.sysadmin
-    except:
-        is_sysadmin = False
-    else:
-        is_sysadmin = True
-
-    return user.is_active and is_sysadmin
+    return user.is_active and hasattr(user, 'sysadmin')
 
 
 class SysAdminRequiredMixin(object):
