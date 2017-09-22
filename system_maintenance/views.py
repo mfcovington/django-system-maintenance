@@ -1,10 +1,7 @@
-from functools import wraps
-
 from django.contrib.auth.decorators import user_passes_test
 from django.core.urlresolvers import reverse_lazy
-from django.http import Http404
 from django.shortcuts import render
-from django.utils.decorators import available_attrs, method_decorator
+from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
 
 from .app_settings import SYSTEM_MAINTENANCE_PAGINATE_BY
@@ -42,7 +39,7 @@ class SysAdminRequiredMixin(object):
 @user_passes_test(
     sysadmin_check,
     login_url=reverse_lazy('system_maintenance:authentication'))
-def raw_view(request, *args, **kwargs):
+def raw_view(request, **kwargs):
     if kwargs['type_of_record'] == 'documentation':
         record = DocumentationRecord.objects.get(pk=kwargs['record_pk'])
     elif kwargs['type_of_record'] == 'maintenance':
