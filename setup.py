@@ -2,8 +2,8 @@ import os
 import sys
 from setuptools import setup
 
-if sys.version_info < (3, 2):
-    print("Sorry, django-system-maintenance currently requires Python 3.2+.")
+if sys.version_info < (3, 4):
+    print("Sorry, django-system-maintenance currently requires Python 3.4+.")
     sys.exit(1)
 
 # From: https://hynek.me/articles/sharing-your-labor-of-love-pypi-quick-and-dirty/
@@ -16,7 +16,7 @@ def read(*paths):
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 install_requires = [
-    "Django>=1.7",    # Confirmed good through 1.11.16
+    "Django>=2.0",    # Confirmed good through 2.0.9
     "django-markupfield>=1.3.5",    # Confirmed good through 1.5.0
     "docutils>=0.12",    # Confirmed good through 0.14
     "markdown2>=2.3.0",    # Confirmed good through 2.3.6
@@ -40,11 +40,7 @@ setup(
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Framework :: Django',
-        'Framework :: Django :: 1.7',
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
-        'Framework :: Django :: 1.10',
-        'Framework :: Django :: 1.11',
+        'Framework :: Django :: 2.0',
         'Intended Audience :: Developers',
         'Intended Audience :: Information Technology',
         'Intended Audience :: System Administrators',
@@ -52,8 +48,6 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
