@@ -16,11 +16,11 @@ def read(*paths):
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 install_requires = [
-    "Django>=1.7",
-    "django-markupfield>=1.3.5",
-    "docutils>=0.12",
-    "markdown2>=2.3.0",
-    "Pygments>=2.0.2",
+    "Django>=1.7",    # Confirmed good through 1.11.16
+    "django-markupfield>=1.3.5",    # Confirmed good through 1.5.0
+    "docutils>=0.12",    # Confirmed good through 0.14
+    "markdown2>=2.3.0",    # Confirmed good through 2.3.6
+    "Pygments>=2.0.2",    # Confirmed good through 2.2.0
 ]
 
 setup(
@@ -43,6 +43,8 @@ setup(
         'Framework :: Django :: 1.7',
         'Framework :: Django :: 1.8',
         'Framework :: Django :: 1.9',
+        'Framework :: Django :: 1.10',
+        'Framework :: Django :: 1.11',
         'Intended Audience :: Developers',
         'Intended Audience :: Information Technology',
         'Intended Audience :: System Administrators',
@@ -54,6 +56,8 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3 :: Only',
         'Topic :: Documentation',
         'Topic :: Internet :: WWW/HTTP',
