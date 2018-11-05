@@ -140,7 +140,9 @@ class AuthenticationViewTest(TestCase, CommonViewTests):
 
     def test_url_resolves_to_view(self):
         found = resolve(self.url)
-        self.assertEqual(found.func, auth_views.login)
+        self.assertEqual(
+            found.func.view_class().template_name,
+            auth_views.LoginView.as_view().view_class().template_name)
 
 
 class HomeViewTest(TestCase, CommonViewTests):
