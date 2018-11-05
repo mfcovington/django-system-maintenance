@@ -65,6 +65,7 @@ class DocumentationRecord(models.Model):
     maintenance_type = models.ForeignKey(
         'MaintenanceType',
         help_text='Select/Create a maintenance type.',
+        on_delete=models.PROTECT,
     )
 
     documentation = MarkupField(
@@ -90,16 +91,19 @@ class MaintenanceRecord(models.Model):
     system = models.ForeignKey(
         'System',
         help_text='Select/Create a system.',
+        on_delete=models.PROTECT,
     )
 
     sys_admin = models.ForeignKey(
         'SysAdmin',
         help_text='Select a system administrator.',
+        on_delete=models.PROTECT,
     )
 
     maintenance_type = models.ForeignKey(
         'MaintenanceType',
         help_text='Select/Create a maintenance type.',
+        on_delete=models.PROTECT,
     )
 
     hardware = models.ManyToManyField(
@@ -181,11 +185,13 @@ class MaintenanceRecordRelationship(models.Model):
     referencing_record = models.ForeignKey(
         'MaintenanceRecord',
         related_name='referencing_record',
+        on_delete=models.CASCADE,
     )
 
     referenced_record = models.ForeignKey(
         'MaintenanceRecord',
         related_name='referenced_record',
+        on_delete=models.CASCADE,
     )
 
     class Meta:
@@ -244,6 +250,7 @@ class SysAdmin(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         help_text='Select a user.',
+        on_delete=models.PROTECT,
         unique=True,
     )
 
