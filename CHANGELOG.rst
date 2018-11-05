@@ -1,6 +1,12 @@
 Revision History
 ================
 
+0.4.1 2018-11-05
+
+- Make compatible with Django 2.1
+- Python>=3.4; Django>=2.0,<3.0
+
+
 0.4.0 2018-11-05
 
 - Make compatible with Django 2.0
