@@ -36,16 +36,19 @@ Add ``system_maintenance`` and its dependencies to ``INSTALLED_APPS`` in ``setti
     INSTALLED_APPS = (
         ...
         'django.contrib.humanize',
-        'system_maintenance.apps.SystemMaintenanceConfig',
+        'system_maintenance',
     )
 
 Add the ``system_maintenance`` URLs to the site's ``urls.py``:
 
 .. code-block:: python
 
+    from django.urls import include, path
+
+
     urlpatterns = [
         ...
-        url(r'^system_maintenance/', include('system_maintenance.urls', namespace='system_maintenance')),
+        path('system_maintenance/', include('system_maintenance.urls', namespace='system_maintenance')),
     ]
 
 
@@ -81,4 +84,4 @@ Usage
 - Visit: ``http://127.0.0.1:8000/system_maintenance/``
 
 
-*Version 0.3.1*
+*Version 0.4.0*
