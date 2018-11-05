@@ -1,6 +1,13 @@
 Revision History
 ================
 
+0.3.1 2018-11-05
+
+- Prepare for upgrade to Django 2+
+- Update dependency version requirements
+- Final version that will be compatible with Django 1.11.16
+
+
 0.3.0 2018-11-04
 
 - Add unit tests and functional tests
