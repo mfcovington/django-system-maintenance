@@ -20,38 +20,28 @@
       <h1 class="text-center">SysAdmin Authentication</h1>
       <hr>
 
-      <form class="form-horizontal" role="form" action="{% url 'system_maintenance:authentication' %}?next={{ request.GET.next }}" method="post">
+      <form class="form-horizontal" role="form" action="{% url 'system_maintenance:authentication' %}?next={% if request.GET.next %}{{ request.GET.next }}{% else %}{% url 'system_maintenance:system_maintenance_home_view' %}{% endif %}" method="post">
         {% csrf_token %}
 
-        <div class="form-group">
+        <div class="form-group {% if form.username.errors %}has-error{% endif %}">
           <label class="control-label col-sm-offset-2 col-sm-2 hidden-xs" for="id_username">Username:</label>
           <div class="col-sm-4">
             <input id="id_username" class="form-control" maxlength="254" name="username" type="text" placeholder="Enter username" autofocus>
+            {% for error in form.username.errors %}
+              <span class="help-block">{{ error }}</span>
+            {% endfor %}
           </div>
         </div>
 
-        {% for error in form.username.errors %}
-          <div class="row">
-            <div class="field-error col-sm-offset-4 col-sm-4">
-              <strong>{{ error }}</strong>
-            </div>
-          </div>
-        {% endfor %}
-
-        <div class="form-group">
+        <div class="form-group {% if form.password.errors %}has-error{% endif %}">
           <label class="control-label col-sm-offset-2 col-sm-2 hidden-xs" for="id_password">Password:</label>
           <div class="col-sm-4">
             <input id="id_password" class="form-control" name="password" type="password" placeholder="Enter password">
+            {% for error in form.password.errors %}
+              <span class="help-block">{{ error }}</span>
+            {% endfor %}
           </div>
         </div>
-
-        {% for error in form.password.errors %}
-          <div class="row">
-            <div class="field-error col-sm-offset-4 col-sm-4">
-              <strong>{{ error }}</strong>
-            </div>
-          </div>
-        {% endfor %}
 
         <div class="form-group">
           <div class="col-sm-offset-4 col-sm-4">

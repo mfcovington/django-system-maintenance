@@ -1,10 +1,7 @@
-from functools import wraps
-
 from django.contrib.auth.decorators import user_passes_test
 from django.core.urlresolvers import reverse_lazy
-from django.http import Http404
 from django.shortcuts import render
-from django.utils.decorators import available_attrs, method_decorator
+from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
 
 from .app_settings import SYSTEM_MAINTENANCE_PAGINATE_BY
@@ -17,14 +14,7 @@ def sysadmin_check(user):
     Check whether user is a sysadmin and has an active account.
     """
 
-    try:
-        user.sysadmin
-    except:
-        is_sysadmin = False
-    else:
-        is_sysadmin = True
-
-    return user.is_active and is_sysadmin
+    return user.is_active and hasattr(user, 'sysadmin')
 
 
 class SysAdminRequiredMixin(object):
@@ -37,6 +27,28 @@ class SysAdminRequiredMixin(object):
         login_url=reverse_lazy('system_maintenance:authentication')))
     def dispatch(self, *args, **kwargs):
         return super(SysAdminRequiredMixin, self).dispatch(*args, **kwargs)
+
+
+@user_passes_test(
+    sysadmin_check,
+    login_url=reverse_lazy('system_maintenance:authentication'))
+def raw_view(request, **kwargs):
+    if kwargs['type_of_record'] == 'documentation':
+        record = DocumentationRecord.objects.get(pk=kwargs['record_pk'])
+    elif kwargs['type_of_record'] == 'maintenance':
+        record = MaintenanceRecord.objects.get(pk=kwargs['record_pk'])
+    else:
+        pass
+
+    field = getattr(record, kwargs['type_of_field'])
+
+    context = {
+        'type_of_field': kwargs['type_of_field'],
+        'raw': field.raw,
+        'record': record,
+    }
+    return render(
+        request, 'system_maintenance/raw.html', context)
 
 
 @user_passes_test(

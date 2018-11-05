@@ -1,0 +1,9 @@
+{% extends "system_maintenance/base.html" %}
+
+{% block title %}raw {{ type_of_field }} | {{ record }}{% endblock %}
+
+{% block content %}
+  <div class='container'>
+    <pre>{{ raw }}</pre>
+  </div>
+{% endblock content %}

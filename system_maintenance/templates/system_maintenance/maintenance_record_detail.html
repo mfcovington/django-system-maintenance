@@ -73,60 +73,21 @@
     </div>
 
     {% if object.description.raw %}
-      <a name='description'></a>
-      <div class="panel panel-info">
-
-        <div class="panel-heading">
-          <h1 class="panel-title"><a href='#summary'>Description</a></h1>
-        </div>
-
-        <div class="panel-body">
-          {{ object.description }}
-        </div>
-
-        <a href='#description'>
-          <div class="panel-footer panel-info"></div>
-        </a>
-
-      </div>
+      {% with type_of_record='maintenance' record_pk=object.pk type_of_field='description' markup_type=object.description.markup_type panel_type='info' content=object.description %}
+        {% include "system_maintenance/_panel.html" %}
+      {% endwith %}
     {% endif %}
 
     {% if object.procedure.raw %}
-      <a name='procedure'></a>
-      <div class="panel panel-success">
-
-        <div class="panel-heading">
-          <h1 class="panel-title"><a href='#summary'>Procedure</a></h1>
-        </div>
-
-        <div class="panel-body">
-          {{ object.procedure }}
-        </div>
-
-        <a href='#procedure'>
-          <div class="panel-footer panel-success"></div>
-        </a>
-
-      </div>
+      {% with type_of_record='maintenance' record_pk=object.pk type_of_field='procedure' markup_type=object.procedure.markup_type panel_type='success' content=object.procedure %}
+        {% include "system_maintenance/_panel.html" %}
+      {% endwith %}
     {% endif %}
 
     {% if object.problems.raw %}
-      <a name='problems'></a>
-      <div class="panel panel-danger">
-
-        <div class="panel-heading">
-          <h1 class="panel-title"><a href='#summary'>Problems</a></h1>
-        </div>
-
-        <div class="panel-body">
-          {{ object.problems }}
-        </div>
-
-        <a href='#problems'>
-          <div class="panel-footer panel-danger"></div>
-        </a>
-
-      </div>
+      {% with type_of_record='maintenance' record_pk=object.pk type_of_field='problems' markup_type=object.problems.markup_type panel_type='danger' content=object.problems %}
+        {% include "system_maintenance/_panel.html" %}
+      {% endwith %}
     {% endif %}
 
     {% if object.documentation_records.count %}
