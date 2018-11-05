@@ -16,7 +16,7 @@ def read(*paths):
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 install_requires = [
-    "Django>=2.0",    # Confirmed good through 2.0.9
+    "Django>=2.0,<3.0",    # Confirmed good through 2.1.3
     "django-markupfield>=1.3.5",    # Confirmed good through 1.5.0
     "docutils>=0.12",    # Confirmed good through 0.14
     "markdown2>=2.3.0",    # Confirmed good through 2.3.6
@@ -25,7 +25,7 @@ install_requires = [
 
 setup(
     name='django-system-maintenance',
-    version='0.4.0',
+    version='0.4.1',
     packages=['system_maintenance'],
     include_package_data=True,
     license='BSD License',
@@ -41,6 +41,7 @@ setup(
         'Environment :: Web Environment',
         'Framework :: Django',
         'Framework :: Django :: 2.0',
+        'Framework :: Django :: 2.1',
         'Intended Audience :: Developers',
         'Intended Audience :: Information Technology',
         'Intended Audience :: System Administrators',
