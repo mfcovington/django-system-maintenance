@@ -30,7 +30,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.find_authentication_elements()
         self.username_inputbox.send_keys(username)
         self.password_inputbox.send_keys(username)
-        self.password_inputbox.send_keys(Keys.ENTER)
+        self.login_button.click()
 
     def system_maintenance_url(self, url_stem=''):
         return '{}/system_maintenance/{}'.format(
