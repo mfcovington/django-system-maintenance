@@ -1,7 +1,7 @@
 import re
 
 from django.contrib.auth import views as auth_views
-from django.core.urlresolvers import resolve, reverse
+from django.urls import resolve, reverse
 from django.template.loader import render_to_string
 from django.test import TestCase
 

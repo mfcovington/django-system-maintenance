@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
