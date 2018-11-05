@@ -6,6 +6,8 @@ from .views import (DocumentationRecordListView, DocumentationRecordDetailView,
     system_maintenance_home_view)
 
 
+app_name = 'system_maintenance'
+
 urlpatterns = [
     url(r'^$', system_maintenance_home_view, name='system_maintenance_home_view'),
     url(r'^authentication/$', auth_views.login, {'template_name': 'system_maintenance/authentication.html'}, name='authentication'),
