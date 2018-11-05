@@ -25,7 +25,7 @@ install_requires = [
 
 setup(
     name='django-system-maintenance',
-    version='0.3.1',
+    version='0.4.0',
     packages=['system_maintenance'],
     include_package_data=True,
     license='BSD License',
