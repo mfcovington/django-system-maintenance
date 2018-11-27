@@ -1,6 +1,12 @@
 Revision History
 ================
 
+0.4.2 2018-11-26
+
+- Add ``django-project-home-templatetags`` compatibility for breadcrumbs
+- Include tests in distribution
+
+
 0.4.1 2018-11-05
 
 - Make compatible with Django 2.1
