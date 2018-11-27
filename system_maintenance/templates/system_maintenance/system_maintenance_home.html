@@ -1,9 +1,19 @@
 {% extends "system_maintenance/base.html" %}
+{% load project_home %}
 
 {% block title %}System Maintenance{% endblock %}
 
 {% block content %}
   <div class="container">
+
+    {% project_home_url as project_home_url %}
+    {% if project_home_url %}
+      <ol class="breadcrumb">
+        {% project_home_breadcrumb_bs3 %}
+        <li class="active">System Maintenance</li>
+      </ol>
+    {% endif %}
+
     <div class="jumbotron">
 
       <h1>System Maintenance</h1>
