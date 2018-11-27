@@ -53,7 +53,7 @@ Add the ``system_maintenance`` URLs to the site's ``urls.py``:
     ]
 
 
-By default, lists of maintenance records, etc. are paginated with 30 records per page. This value can be customaized in ``settings.py``:
+By default, lists of maintenance records, etc. are paginated with 30 records per page. This value can be customized in ``settings.py``:
 
 .. code-block:: python
 
