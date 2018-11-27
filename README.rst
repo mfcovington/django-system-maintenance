@@ -36,6 +36,7 @@ Add ``system_maintenance`` and its dependencies to ``INSTALLED_APPS`` in ``setti
     INSTALLED_APPS = (
         ...
         'django.contrib.humanize',
+        'project_home_tags',
         'system_maintenance',
     )
 
@@ -52,11 +53,18 @@ Add the ``system_maintenance`` URLs to the site's ``urls.py``:
     ]
 
 
-By default, lists of maintenance records, etc. are paginated with 30 records per page. This value can be customaized in ``settings.py``:
+By default, lists of maintenance records, etc. are paginated with 30 records per page. This value can be customized in ``settings.py``:
 
 .. code-block:: python
 
     SYSTEM_MAINTENANCE_PAGINATE_BY = 50
+
+This app is compatible with ``django-project-home-templatetags``. Check out its `Configuration Documentation <https://github.com/mfcovington/django-project-home-templatetags#configuration>`_ if you want this app's top-level breadcrumb to link to your project's homepage. To activate ``project_home_tags`` functionality, you must define ``PROJECT_HOME_NAMESPACE`` and, optionally, ``PROJECT_HOME_LABEL`` in ``settings.py``:
+
+.. code-block:: python
+
+    PROJECT_HOME_NAMESPACE = 'project_name:index_view'    # Namespace of homepage
+    PROJECT_HOME_LABEL = 'Homepage'    # Optional; Default is 'Home'
 
 
 Migrations
@@ -84,4 +92,4 @@ Usage
 - Visit: ``http://127.0.0.1:8000/system_maintenance/``
 
 
-*Version 0.4.1*
+*Version 0.4.2*

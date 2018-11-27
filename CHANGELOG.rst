@@ -1,6 +1,12 @@
 Revision History
 ================
 
+0.4.2 2018-11-26
+
+- Add ``django-project-home-templatetags`` compatibility for breadcrumbs
+- Include tests in distribution
+
+
 0.4.1 2018-11-05
 
 - Make compatible with Django 2.1
@@ -14,11 +20,17 @@ Revision History
 - Python>=3.4; Django>=2.0,<=2.0.9
 
 
+0.3.2 2018-11-05
+
+- Set upper bound of <2.0 for Django version
+- Python>=3.2,<3.8; Django>=1.7,<2.0
+- Final version that will be compatible with Django 1.11.16
+
+
 0.3.1 2018-11-05
 
 - Prepare for upgrade to Django 2+
 - Update dependency version requirements
-- Final version that will be compatible with Django 1.11.16
 
 
 0.3.0 2018-11-04
