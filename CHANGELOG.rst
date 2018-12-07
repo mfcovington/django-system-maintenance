@@ -1,6 +1,11 @@
 Revision History
 ================
 
+0.4.3 2018-12-06
+
+- Include migrations when packaging for distribution
+
+
 0.4.2 2018-11-26
 
 - Add ``django-project-home-templatetags`` compatibility for breadcrumbs
