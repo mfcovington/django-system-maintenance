@@ -36,6 +36,7 @@ Add ``system_maintenance`` and its dependencies to ``INSTALLED_APPS`` in ``setti
     INSTALLED_APPS = (
         ...
         'django.contrib.humanize',
+        'markupfield_helpers',
         'project_home_tags',
         'system_maintenance',
     )
