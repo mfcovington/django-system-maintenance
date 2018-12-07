@@ -1,6 +1,11 @@
 Revision History
 ================
 
+0.4.4 2018-12-06
+
+- DRY up with markupfield_helpers
+
+
 0.4.3 2018-12-06
 
 - Include migrations when packaging for distribution

@@ -4,32 +4,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.html import escape, linebreaks, urlize
 
-import markdown2
-from docutils.core import publish_parts
-from markupfield.fields import MarkupField
+from markupfield_helpers.helpers import MarkupField
 
-
-def render_md(markup):
-    return markdown2.markdown(markup, extras=[
-        'code-friendly',
-        'cuddled-lists',
-        'fenced-code-blocks',
-        'footnotes',
-        'tables',
-    ])
-
-
-def render_rest(markup):
-    parts = publish_parts(source=markup, writer_name="html4css1")
-    return parts["fragment"]
-
-
-MARKUP_FIELD_TYPES = [
-    ('Markdown', render_md),
-    ('Markdown Basic', markdown2.markdown),
-    ('Plain Text', lambda markup: urlize(linebreaks(escape(markup)))),
-    ('reStructuredText', render_rest),
-]
 
 STATUS_CHOICES = [
     ('Complete', 'Complete'),

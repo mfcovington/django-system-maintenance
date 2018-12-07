@@ -36,6 +36,7 @@ Add ``system_maintenance`` and its dependencies to ``INSTALLED_APPS`` in ``setti
     INSTALLED_APPS = (
         ...
         'django.contrib.humanize',
+        'markupfield_helpers',
         'project_home_tags',
         'system_maintenance',
     )
@@ -98,4 +99,4 @@ Usage
 - Visit: ``http://127.0.0.1:8000/system_maintenance/``
 
 
-*Version 0.4.3*
+*Version 0.4.4*
