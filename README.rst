@@ -70,11 +70,17 @@ This app is compatible with ``django-project-home-templatetags``. Check out its 
 Migrations
 ==========
 
-Create and perform ``system_maintenance`` migrations:
+Create migrations for ``system_maintenance``, if necessary:
 
 .. code-block:: sh
 
     python manage.py makemigrations system_maintenance
+
+
+Perform migrations for ``system_maintenance``:
+
+.. code-block:: sh
+
     python manage.py migrate
 
 
