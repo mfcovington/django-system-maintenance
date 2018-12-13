@@ -46,9 +46,7 @@ class DocumentationRecord(models.Model):
 
     documentation = MarkupField(
         blank=True,
-        default_markup_type='Markdown',
         help_text='Document how to perform a task.',
-        markup_choices=MARKUP_FIELD_TYPES,
         null=True,
     )
 
@@ -96,25 +94,19 @@ class MaintenanceRecord(models.Model):
 
     description = MarkupField(
         blank=True,
-        default_markup_type='Markdown',
         help_text='Enter a description of the system maintenance performed.',
-        markup_choices=MARKUP_FIELD_TYPES,
         null=True,
     )
 
     procedure = MarkupField(
         blank=True,
-        default_markup_type='Markdown',
         help_text='Enter details of how the system maintenance was performed.',
-        markup_choices=MARKUP_FIELD_TYPES,
         null=True,
     )
 
     problems = MarkupField(
         blank=True,
-        default_markup_type='Markdown',
         help_text='Describe problems that arose during system maintenance.',
-        markup_choices=MARKUP_FIELD_TYPES,
         null=True,
     )
 
