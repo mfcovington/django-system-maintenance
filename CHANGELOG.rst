@@ -1,6 +1,11 @@
 Revision History
 ================
 
+0.4.5 2018-12-13
+
+- Remove ``MarkupField`` args already defined by markupfield helper
+
+
 0.4.4 2018-12-06
 
 - DRY up with markupfield_helpers
